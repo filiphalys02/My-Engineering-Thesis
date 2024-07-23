@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    win-64: 57cf360fe992b6cffd3cc137e10d79024e5a0d2132d5825ad5bc331c25e2a860
+    win-64: de931e0fb76abfb46f309f8a46137133219bbd10ab889a07b4179a2a0e95d068
   channels:
   - url: conda-forge
     used_env_vars: []
@@ -63,10 +63,10 @@ package:
     ucrt: '>=10.0.20348.0'
     vc: '>=14.2,<15'
     vc14_runtime: '>=14.29.30139'
-  url: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-hcfcfb64_5.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h2466b09_7.conda
   hash:
-    md5: 26eb8ca6ea332b675e11704cce84a3be
-    sha256: ae5f47a5c86fd6db822931255dcf017eb12f60c77f07dc782ccb477f7808aab2
+    md5: 276e7ffe9ffe39688abc665ef0f45596
+    sha256: 35a5dad92e88fdd7fc405e864ec239486f4f31eec229e31686e61a140a8e573b
   category: main
   optional: false
 - name: ca-certificates
@@ -248,10 +248,10 @@ package:
   manager: conda
   platform: win-64
   dependencies: {}
-  url: https://conda.anaconda.org/conda-forge/win-64/intel-openmp-2024.2.0-h57928b3_979.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/intel-openmp-2024.2.0-h57928b3_980.conda
   hash:
-    md5: 192b0028299eebbc8d88624764df61f5
-    sha256: 49ba0097aa41406eefd09903a525abbe6e98b5452a9a3dddb68989a86eb519ed
+    md5: 9c28c39e64871a0adef7d1195bd58655
+    sha256: e3ddfb67e0a922868e68f83d0b56755ff1c280ffa959a0c5ee6a922aaf7022b0
   category: main
   optional: false
 - name: joblib
@@ -405,10 +405,10 @@ package:
     vc: '>=14.2,<15'
     vc14_runtime: '>=14.29.30139'
     zstd: '>=1.5.6,<1.6.0a0'
-  url: https://conda.anaconda.org/conda-forge/win-64/libclang13-18.1.8-default_ha5278ca_0.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/libclang13-18.1.8-default_ha5278ca_1.conda
   hash:
-    md5: 2f4204ba38a8654b132e5ae03287efb8
-    sha256: 07f2393266770d8fa7509647939de5717894618f3ac676679ab42caeee65dee6
+    md5: 30a167d5b69555fbf39192a23e40df52
+    sha256: b9c47c6124d4fa0ce9bf6925744897319bbcc77356e1b3ac464a26649acc3381
   category: main
   optional: false
 - name: libdeflate
@@ -666,10 +666,10 @@ package:
     ucrt: '>=10.0.20348.0'
     vc: '>=14.2,<15'
     vc14_runtime: '>=14.29.30139'
-  url: https://conda.anaconda.org/conda-forge/win-64/libxml2-2.12.7-h0f24e4e_3.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/libxml2-2.12.7-h0f24e4e_4.conda
   hash:
-    md5: f89dd2779d87463dd3327edcb3026dca
-    sha256: 2986742c494d5c036e0889eea2658ada0178cb36b51fa20ebdc33ddc19268e5f
+    md5: ed4d301f0d2149b34deb9c4fecafd836
+    sha256: ae78197961b09b0eef4ee194a44e4adc4555c0f2f20c348086b0cd8aaf2f7731
   category: main
   optional: false
 - name: libzlib
@@ -878,10 +878,10 @@ package:
     ucrt: '>=10.0.20348.0'
     vc: '>=14.2,<15'
     vc14_runtime: '>=14.29.30139'
-  url: https://conda.anaconda.org/conda-forge/win-64/openssl-3.3.1-h2466b09_1.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/openssl-3.3.1-h2466b09_2.conda
   hash:
-    md5: aa36aca82d1ffd26bee88ac7dc9e1ee3
-    sha256: e45ee071d45fcfaa59beb31def800cdb9d81b17bbb74c4a7e400102cb22ca35e
+    md5: 375dbc2a4d5a2e4c738703207e8e368b
+    sha256: d86c4fa31294ad9068717788197e97e5637e056c82745ffb6d0e88fd1fef1a9d
   category: main
   optional: false
 - name: packaging
@@ -1150,9 +1150,9 @@ package:
     gst-plugins-base: '>=1.24.5,<1.25.0a0'
     gstreamer: '>=1.24.5,<1.25.0a0'
     icu: '>=73.2,<74.0a0'
-    krb5: '>=1.21.2,<1.22.0a0'
+    krb5: '>=1.21.3,<1.22.0a0'
     libclang13: '>=15.0.7'
-    libglib: '>=2.80.2,<3.0a0'
+    libglib: '>=2.80.3,<3.0a0'
     libjpeg-turbo: '>=3.0.0,<4.0a0'
     libpng: '>=1.6.43,<1.7.0a0'
     libsqlite: '>=3.46.0,<4.0a0'
@@ -1162,10 +1162,10 @@ package:
     vc: '>=14.2,<15'
     vc14_runtime: '>=14.29.30139'
     zstd: '>=1.5.6,<1.6.0a0'
-  url: https://conda.anaconda.org/conda-forge/win-64/qt-main-5.15.8-h06adc49_22.conda
+  url: https://conda.anaconda.org/conda-forge/win-64/qt-main-5.15.8-h06adc49_23.conda
   hash:
-    md5: 919650dc31edac6a17a99157aec4f87c
-    sha256: 050c3bc95ff3ce2fce043988e45b841c62b72470c2f0841442154b378cc0d37e
+    md5: 1f6a464e4fc36114ac7286d1db8d260e
+    sha256: 35a3c7a30e86c4cb6cca09008ca7d05fbc5801e5db949a9c1c5ca6bcd01afb4f
   category: main
   optional: false
 - name: scikit-learn
@@ -1209,15 +1209,15 @@ package:
   category: main
   optional: false
 - name: setuptools
-  version: 70.3.0
+  version: 71.0.4
   manager: conda
   platform: win-64
   dependencies:
     python: '>=3.8'
-  url: https://conda.anaconda.org/conda-forge/noarch/setuptools-70.3.0-pyhd8ed1ab_0.conda
+  url: https://conda.anaconda.org/conda-forge/noarch/setuptools-71.0.4-pyhd8ed1ab_0.conda
   hash:
-    md5: 693bb57e8f92120caa956898065f3627
-    sha256: 869ea7688c040911ac1050d5765fa1f3d8ea1858c9f9cecb0df136a2f5e44f46
+    md5: ee78ac9c720d0d02fcfd420866b82ab1
+    sha256: e1b5dd28d2ea2a7ad660fbc8d1f2ef682a2f8460f80240d836d62e56225ac680
   category: main
   optional: false
 - name: sip
