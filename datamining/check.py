@@ -1,8 +1,8 @@
 import pandas as pd
-from datamining._errors import _validate_argument_types
+from datamining._errors import _validate_argument_types1, _validate_argument_types2
 
 
-@_validate_argument_types
+@_validate_argument_types1
 def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     """
     The function summarizes numerical columns in a data frame using statistical measures.
@@ -23,10 +23,13 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
             IQR -> Interquartile range
             MIN -> Minimum value
             MAX -> Maximum value
+            RAN -> Range
             STD -> Standard deviation
             SUM -> Sum of values
             LOW OUT -> Number of lower outliers
             UPP OUT -> Number of upper outliers
+
+        *** The function will not work for a column with complex numeric variables ***
     """
 
     df = df.select_dtypes(include=['number'])
@@ -43,6 +46,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     iqrs = list()
     mins = list()
     maxs = list()
+    rans = list()
     stds = list()
     sums = list()
     lout = list()
@@ -59,6 +63,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
         iqrs.append(_count_iqr(df, column))
         mins.append(df[column].min())
         maxs.append(df[column].max())
+        rans.append(df[column].max()-df[column].min())
         stds.append(df[column].std())
         sums.append(df[column].sum())
         lout.append((df[column] < (df[column].quantile(0.25) - 1.5 * _count_iqr(df, column))).sum())
@@ -74,10 +79,61 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     result_df["IQR"] = [f"{iqr:.{round}f}" for iqr in iqrs]
     result_df["MIN"] = [f"{min:.{round}f}" for min in mins]
     result_df["MAX"] = [f"{max:.{round}f}" for max in maxs]
+    result_df["RAN"] = [f"{ran:.{round}f}" for ran in rans]
     result_df["STD"] = [f"{std:.{round}f}" for std in stds]
     result_df["SUM"] = [f"{sum:.{round}f}" for sum in sums]
     result_df["LOW OUT"] = lout
     result_df["UPP OUT"] = uout
+
+    if use is True:
+        return result_df
+    if use is False:
+        return result_df.to_string(index=False)
+
+
+@_validate_argument_types1
+def check_category_data(df: pd.DataFrame, use: bool = False):
+    """
+    The function summarizes categorical columns in a data frame using statistical measures.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param use:  boolean -> To use the output as a pandas Data Frame, set to True.
+    :return: str -> If param use is False
+             pandas DataFrame -> If param use is True
+
+            Output measures:
+            NAME -> Column name
+            TYPE -> Data type
+            NaN -> Number of missing values
+            UNIQUE -> Number of unique categories
+            MODE -> Most frequently occurring category (modal value)
+            FREQ -> Frequency of the most frequently occurring category
+    """
+
+    df = df.select_dtypes(include=['object', 'string', 'category'])
+
+    result_df = pd.DataFrame()
+
+    names = list()
+    types = list()
+    nans = list()
+    unis = list()
+    mods = list()
+    fres = list()
+
+    for column in df.columns:
+        names.append(column)
+        types.append(df[column].dtype)
+        nans.append(df[column].isna().sum())
+        unis.append(df[column].nunique())
+        mods.append(df[column].mode()[0])
+        fres.append(df[column].value_counts().loc[df[column].mode()[0]])
+
+    result_df["NAME"] = names
+    result_df["TYPE"] = types
+    result_df["NaN"] = nans
+    result_df["UNIQUE"] = unis
+    result_df["MODE"] = mods
+    result_df["FREQ"] = fres
 
     if use is True:
         return result_df
