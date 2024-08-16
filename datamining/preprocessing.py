@@ -1,8 +1,8 @@
-from datamining._errors import _validate_argument_types
+from datamining._errors import _validate_argument_types2
 import pandas as pd
 
 
-@_validate_argument_types
+@_validate_argument_types2
 def handle_NaN(df: pd.DataFrame, column: str = None, strategy=None) -> pd.DataFrame:
 
     if column is not None:
