@@ -33,6 +33,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     """
 
     df = df.select_dtypes(include=['number'])
+    df = df.select_dtypes(exclude=['timedelta'])
 
     result_df = pd.DataFrame()
 
@@ -73,9 +74,9 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     result_df["TYPE"] = types
     result_df["NaN"] = nans
     result_df["AVG"] = [f"{mean:.{round}f}" for mean in means]
-    result_df['Q25'] = [f"{q25:.{round}f}" for q25 in q25s]
-    result_df['Q50'] = [f"{q50:.{round}f}" for q50 in q50s]
-    result_df['Q75'] = [f"{q75:.{round}f}" for q75 in q75s]
+    result_df["Q25"] = [f"{q25:.{round}f}" for q25 in q25s]
+    result_df["MED"] = [f"{q50:.{round}f}" for q50 in q50s]
+    result_df["Q75"] = [f"{q75:.{round}f}" for q75 in q75s]
     result_df["IQR"] = [f"{iqr:.{round}f}" for iqr in iqrs]
     result_df["MIN"] = [f"{min:.{round}f}" for min in mins]
     result_df["MAX"] = [f"{max:.{round}f}" for max in maxs]
@@ -91,6 +92,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
         return result_df.to_string(index=False)
 
 
+# indeks giniego ? entropia ?
 @_validate_argument_types1
 def check_category_data(df: pd.DataFrame, use: bool = False):
     """
@@ -134,6 +136,106 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
     result_df["UNIQUE"] = unis
     result_df["MODE"] = mods
     result_df["FREQ"] = fres
+
+    if use is True:
+        return result_df
+    if use is False:
+        return result_df.to_string(index=False)
+
+
+@_validate_argument_types1
+def check_time_series_data(df: pd.DataFrame, use: bool = False):
+
+    df = df.select_dtypes(include=['datetime'])
+
+    result_df = pd.DataFrame()
+
+    names = list()
+    types = list()
+    nans = list()
+    mins = list()
+    maxs = list()
+    rans = list()
+    avgs = list()
+    meds = list()
+    stds = list()
+    unis = list()
+
+    for column in df.columns:
+        names.append(column)
+        types.append(df[column].dtype)
+        nans.append(df[column].isna().sum())
+        mins.append(df[column].min())
+        maxs.append(df[column].max())
+        rans.append(df[column].max() - df[column].min())
+        avgs.append(df[column].mean())
+        meds.append(df[column].quantile(0.5))
+        stds.append(df[column].std())
+        unis.append(df[column].nunique())
+
+    result_df["NAME"] = names
+    result_df["TYPE"] = types
+    result_df["NaN"] = nans
+    result_df["MIN"] = mins
+    result_df["MAX"] = maxs
+    result_df["RANGE"] = rans
+    result_df["AVG"] = avgs
+    result_df["MED"] = meds
+    result_df["STD"] = stds
+    result_df["UNIQUE"] = unis
+
+    if use is True:
+        return result_df
+    if use is False:
+        return result_df.to_string(index=False)
+
+
+@_validate_argument_types1
+def check_time_interval_data(df: pd.DataFrame, use: bool = False):
+
+    df = df.select_dtypes(include=['timedelta'])
+
+    result_df = pd.DataFrame()
+
+    names = list()
+    types = list()
+    nans = list()
+    avgs = list()
+    q50s = list()
+    iqrs = list()
+    mins = list()
+    maxs = list()
+    rans = list()
+    stds = list()
+    sums = list()
+    unis = list()
+
+    for column in df.columns:
+        names.append(column)
+        types.append(df[column].dtype)
+        nans.append(df[column].isna().sum())
+        avgs.append(pd.to_timedelta(round(df[column].mean().total_seconds()), unit='s'))
+        q50s.append(pd.to_timedelta(round(df[column].quantile(0.5).total_seconds()), unit='s'))
+        iqrs.append(pd.to_timedelta(round(_count_iqr(df, column).total_seconds()), unit='s'))
+        mins.append(pd.to_timedelta(round(df[column].min().total_seconds()), unit='s'))
+        maxs.append(pd.to_timedelta(round(df[column].max().total_seconds()), unit='s'))
+        rans.append(pd.to_timedelta(round((df[column].max() - df[column].min()).total_seconds()), unit='s'))
+        stds.append(pd.to_timedelta(round(df[column].std().total_seconds()), unit='s'))
+        sums.append(pd.to_timedelta(round((df[column].sum() - df[column].min()).total_seconds()), unit='s'))
+        unis.append(df[column].nunique())
+
+    result_df["NAME"] = names
+    result_df["TYPE"] = types
+    result_df["NaN"] = nans
+    result_df["AVG"] = avgs
+    result_df["MED"] = q50s
+    result_df["IQR"] = iqrs
+    result_df["MIN"] = mins
+    result_df["MAX"] = maxs
+    result_df["RAN"] = rans
+    result_df["STD"] = stds
+    result_df["SUM"] = sums
+    result_df["UNIQUE"] = unis
 
     if use is True:
         return result_df
