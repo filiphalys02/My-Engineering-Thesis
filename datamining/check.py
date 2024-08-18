@@ -35,6 +35,9 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     df = df.select_dtypes(include=['number'])
     df = df.select_dtypes(exclude=['timedelta'])
 
+    if df.empty:
+        return f'There is no numeric columns in Your Data Frame'
+
     result_df = pd.DataFrame()
 
     names = list()
@@ -113,6 +116,9 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
 
     df = df.select_dtypes(include=['object', 'string', 'category'])
 
+    if df.empty:
+        return f'There is no categorical columns in Your Data Frame'
+
     result_df = pd.DataFrame()
 
     names = list()
@@ -166,6 +172,9 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
     """
 
     df = df.select_dtypes(include=['datetime'])
+
+    if df.empty:
+        return f'There is no time series columns in Your Data Frame'
 
     result_df = pd.DataFrame()
 
@@ -234,6 +243,9 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
     """
     df = df.select_dtypes(include=['timedelta'])
 
+    if df.empty:
+        return f'There is no time interval columns in Your Data Frame'
+
     result_df = pd.DataFrame()
 
     names = list()
@@ -282,5 +294,20 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
         return result_df.to_string(index=False)
 
 
+@_validate_argument_types1
+def check_data(df: pd.DataFrame, round: int = 1):
+    """
+    The function summarizes all columns in a data frame using statistical measures.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param round: int -> The number of decimal places to which the function will round the measures (numeric data)
+    :return: None
+    """
+    print(f'--- NUMERIC DATA --- \n {check_numeric_data(df, round)} \n')
+    print(f'--- CATEGORICAL DATA --- \n {check_category_data(df)} \n')
+    print(f'--- TIME SERIES DATA --- \n {check_time_series_data(df)} \n')
+    print(f'--- TIME INTERVAL DATA --- \n {check_time_interval_data(df)} \n')
+
+
+@_validate_argument_types1
 def _count_iqr(df, column):
     return df[column].quantile(0.75) - df[column].quantile(0.25)
