@@ -1,5 +1,5 @@
 import pandas as pd
-from datamining._errors import _validate_argument_types1, _validate_argument_types2
+from datamining._errors import _validate_argument_types1
 
 
 @_validate_argument_types1
@@ -7,8 +7,8 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     """
     The function summarizes numerical columns in a data frame using statistical measures.
     :param df: pandas DataFrame -> Input Data Frame
-    :param round: int -> The number of decimal places to which the function will round the measures.
-    :param use: boolean -> To use the output as a pandas Data Frame, set to True.
+    :param round: int -> The number of decimal places to which the function will round the measures
+    :param use: boolean -> To use the output as a pandas Data Frame, set to True
     :return: str -> If param use is False
              pandas DataFrame -> If param use is True
 
@@ -98,7 +98,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
     """
     The function summarizes categorical columns in a data frame using statistical measures.
     :param df: pandas DataFrame -> Input Data Frame
-    :param use:  boolean -> To use the output as a pandas Data Frame, set to True.
+    :param use: boolean -> To use the output as a pandas Data Frame, set to True
     :return: str -> If param use is False
              pandas DataFrame -> If param use is True
 
@@ -145,6 +145,25 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
 
 @_validate_argument_types1
 def check_time_series_data(df: pd.DataFrame, use: bool = False):
+    """
+    The function summarizes time series columns in a data frame using statistical measures.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param use: boolean -> To use the output as a pandas Data Frame, set to True
+    :return: str -> If param use is False
+             pandas DataFrame -> If param use is True
+
+            Output measures:
+            NAME -> Column name
+            TYPE -> Data type
+            NaN -> Number of missing values
+            MIN -> Earliest date
+            MAX -> Latest date
+            RAN -> Difference between latest date and earliest date
+            AVG -> Average date
+            MED -> Median date
+            STD -> Date standard deviation
+            UNIQUE -> Number of unique dates
+    """
 
     df = df.select_dtypes(include=['datetime'])
 
@@ -178,7 +197,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
     result_df["NaN"] = nans
     result_df["MIN"] = mins
     result_df["MAX"] = maxs
-    result_df["RANGE"] = rans
+    result_df["RAN"] = rans
     result_df["AVG"] = avgs
     result_df["MED"] = meds
     result_df["STD"] = stds
@@ -192,7 +211,27 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
 
 @_validate_argument_types1
 def check_time_interval_data(df: pd.DataFrame, use: bool = False):
+    """
+    The function summarizes time interval columns in a data frame using statistical measures.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param use: boolean -> To use the output as a pandas Data Frame, set to True
+    :return: str -> If param use is False
+             pandas DataFrame -> If param use is True
 
+            Output measures:
+            NAME -> Column name
+            TYPE -> Data type
+            NaN -> Number of missing values
+            AVG -> Average interval
+            MED -> Median interval
+            IQR -> Interquartile range interval
+            MIN -> Shortest interval
+            MAX -> Longest interval
+            RAN -> Difference between longest and shortest interval
+            STD -> Interval standard deviation
+            SUM -> Total length of all intervals
+            UNIQUE -> Number of unique intervals
+    """
     df = df.select_dtypes(include=['timedelta'])
 
     result_df = pd.DataFrame()
