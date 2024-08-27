@@ -1,4 +1,4 @@
-from datamining._errors import _validate_argument_types2
+from datamining._errors import _validate_argument_types2, _validate_argument_types1
 import pandas as pd
 
 
@@ -44,7 +44,35 @@ def handle_NaN(df: pd.DataFrame, column: str = None, strategy=None) -> pd.DataFr
         elif strategy is None:
             df = df.fillna(0)
             return df
-        elif strategy == 'regression':
-            print('regression')
         else:
             raise TypeError("strategy argument must be: ['mean', 'median', 'drop', None, <int>, <float>, <complex>]")
+
+
+@_validate_argument_types1
+def standarization(df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
+    """
+    The function performs standardization of numerical data according to the formula:
+            (sample - population mean) / population standard deviation.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to standardize
+                    None -> All columns will be standardized
+    :return: pandas DataFrame -> Input DataFrame with standardized relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    for column in columns:
+        mean = df_copy[column].mean()
+        std = df_copy[column].std()
+        df_copy[column] = (df_copy[column] - mean) / std
+        df[column] = df_copy[column]
+
+    return df
