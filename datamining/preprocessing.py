@@ -24,8 +24,6 @@ def handle_NaN(df: pd.DataFrame, column: str = None, strategy=None) -> pd.DataFr
         elif strategy is None:
             df[column] = df[column].fillna(0)
             return df
-        elif strategy == 'regression':
-            print('regression')
         else:
             raise TypeError(
                 "strategy argument must be: ['mean', 'median', 'drop', None, <int>, <float>, <complex>]")

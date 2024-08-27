@@ -114,7 +114,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
             FREQ -> Frequency of the most frequently occurring category
     """
 
-    df = df.select_dtypes(include=['object', 'string', 'category'])
+    df = df.select_dtypes(include=['object', 'string', 'category', 'boolean'])
 
     if df.empty:
         return f'There is no categorical columns in Your Data Frame'
@@ -133,8 +133,13 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
         types.append(df[column].dtype)
         nans.append(df[column].isna().sum())
         unis.append(df[column].nunique())
-        mods.append(df[column].mode()[0])
-        fres.append(df[column].value_counts().loc[df[column].mode()[0]])
+        mode_series = df[column].mode()
+        if mode_series.empty:
+            mods.append(None)
+            fres.append(0)
+        else:
+            mods.append(mode_series[0])
+            fres.append(df[column].value_counts().get(mode_series[0], 0))
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
@@ -302,10 +307,14 @@ def check_data(df: pd.DataFrame, round: int = 1):
     :param round: int -> The number of decimal places to which the function will round the measures (numeric data)
     :return: None
     """
-    print(f'--- NUMERIC DATA --- \n {check_numeric_data(df, round)} \n')
-    print(f'--- CATEGORICAL DATA --- \n {check_category_data(df)} \n')
-    print(f'--- TIME SERIES DATA --- \n {check_time_series_data(df)} \n')
-    print(f'--- TIME INTERVAL DATA --- \n {check_time_interval_data(df)} \n')
+    if check_numeric_data(df, round) != 'There is no numeric columns in Your Data Frame':
+        print(f'--- NUMERIC DATA --- \n {check_numeric_data(df, round)} \n')
+    if check_category_data(df) != 'There is no categorical columns in Your Data Frame':
+        print(f'--- CATEGORICAL DATA --- \n {check_category_data(df)} \n')
+    if check_time_series_data(df) != 'There is no time series columns in Your Data Frame':
+        print(f'--- TIME SERIES DATA --- \n {check_time_series_data(df)} \n')
+    if check_time_interval_data(df) != 'There is no time interval columns in Your Data Frame':
+        print(f'--- TIME INTERVAL DATA --- \n {check_time_interval_data(df)} \n')
 
 
 @_validate_argument_types1
