@@ -1,5 +1,7 @@
 from datamining._errors import _validate_argument_types2, _validate_argument_types1
 import pandas as pd
+import math
+import numpy as np
 
 
 @_validate_argument_types2
@@ -106,3 +108,36 @@ def normalization_min_max(df: pd.DataFrame, columns: list = None) -> pd.DataFram
         df[column] = df_copy[column]
 
     return df
+
+
+@_validate_argument_types1
+def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: float = math.e, c: float = 0) -> pd.DataFrame:
+    """
+    The function performs logarithm transformation of numerical data according to the formula:
+            a * log_b(sample + c)
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to transform
+                    None -> All numerical columns will be transformed
+    :param a: float -> Scaling factor
+    :param b: float -> Base of the logarithm
+    :param c: float -> Offset to be added to each value before taking the logarithm
+    :return: pandas DataFrame -> Input DataFrame with transformed relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is no column named '{element}' in your DataFrame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    for column in columns:
+        values_with_c = df_copy[column] + c
+        if (values_with_c <= 0).any():
+            raise ValueError(f"Cannot count the logarithm of {column} column. Check your offset {c}.")
+
+        df_copy[column] = a * np.log(values_with_c) / np.log(b)
+    return df_copy
