@@ -1,6 +1,6 @@
 import pandas as pd
 from datamining.preprocessing import (handle_NaN, standarization, normalization_min_max, log_transformation,
-                                      normalization_box_kox, root_transformation)
+                                      normalization_box_kox, root_transformation, binarization)
 from datamining.check import (check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data,
                               check_data)
 
@@ -25,4 +25,4 @@ df = pd.DataFrame({'a': [16, 12, 3, 34, 3 , 3, 3, 3, 3, 3],
                    'g': pd.date_range(start='2024-01-01', periods=10, freq='D')
                    })
 
-print(root_transformation(df, ['a', 'b', 'c'], 2))
+print(binarization(df, ['a', 'b', 'c'], 20.0, ['a', 'b']))

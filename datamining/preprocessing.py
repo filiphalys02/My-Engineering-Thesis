@@ -205,3 +205,69 @@ def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -
         df[column] = df_copy[column]
 
     return df
+
+
+@_validate_argument_types1
+def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -> pd.DataFrame:
+    """
+    The function performs root transformation of numerical data according to the formula:
+            sample ^ (1/root)
+    :param root: int -> root
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to transform
+                    None -> All columns will be transformed
+    :return: pandas DataFrame -> Input DataFrame with transformed relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    for column in columns:
+        df_copy[column] = df_copy[column] ** (1/root)
+        df[column] = df_copy[column]
+
+    return df
+
+
+@_validate_argument_types1
+def binarization(df: pd.DataFrame, columns: list = None, border: float = 0, values: list = [0, 1]) -> pd.DataFrame:
+    """
+    The function performs binarization of numerical data
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to binarize
+                    None -> All columns will be binarized
+    :param border: float -> The boundary against which binarization will be performed
+    :param values: Two-element list,
+                   the first element will be assigned to the value below the border,
+                   the second element will be assigned to the value equal to or higher than the border
+    :return: pandas DataFrame -> Input DataFrame with binarized relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    if len(values) != 2:
+        raise ValueError(f"Argument 'list' must be a list of 2 elements, not {len(values)}.")
+
+    for column in columns:
+        low = values[0]
+        high = values[1]
+        df_copy[column] = df_copy[column].apply(lambda x: low if x < border else (high if x >= border else np.nan))
+
+        df[column] = df_copy[column]
+
+    return df
