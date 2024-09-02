@@ -141,3 +141,38 @@ def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: 
 
         df_copy[column] = a * np.log(values_with_c) / np.log(b)
     return df_copy
+
+
+@_validate_argument_types1
+def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1) -> pd.DataFrame:
+    """
+    The function performs box-kox normalization of numerical data according to the formula:
+            (sample^alpha - 1) / alpha, if alpha is not equal to 0
+            ln(sample), if alpha is equal to 0
+    :param alpha: float -> alpha
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to normalize
+                    None -> All columns will be normalized
+    :return: pandas DataFrame -> Input DataFrame with normalized relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    if alpha != 0:
+        for column in columns:
+            df_copy[column] = (df_copy[column]**alpha - 1) / alpha
+    else:
+        for column in columns:
+            df_copy[column] = np.log(df_copy[column])
+
+    df[column] = df_copy[column]
+
+    return df

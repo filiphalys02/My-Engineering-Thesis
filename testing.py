@@ -1,5 +1,5 @@
 import pandas as pd
-from datamining.preprocessing import handle_NaN, standarization, normalization_min_max, log_transformation
+from datamining.preprocessing import handle_NaN, standarization, normalization_min_max, log_transformation, normalization_box_kox
 from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
 
 
@@ -23,4 +23,4 @@ df = pd.DataFrame({'a': [16, 12, 3, 34, 3 , 3, 3, 3, 3, 3],
                    'g': pd.date_range(start='2024-01-01', periods=10, freq='D')
                    })
 
-print(log_transformation(df, ['a', 'c'], a=2, b=2, c=99.5))
+print(normalization_box_kox(df, ['a', 'b']))
