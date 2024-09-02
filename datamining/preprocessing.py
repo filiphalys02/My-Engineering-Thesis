@@ -149,7 +149,7 @@ def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1
     The function performs box-kox normalization of numerical data according to the formula:
             (sample^alpha - 1) / alpha, if alpha is not equal to 0
             ln(sample), if alpha is equal to 0
-    :param alpha: float -> alpha
+    :param alpha: int -> alpha
     :param df: pandas DataFrame -> Input Data Frame
     :param columns: list -> List of column names to normalize
                     None -> All columns will be normalized
@@ -174,5 +174,34 @@ def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1
             df_copy[column] = np.log(df_copy[column])
 
     df[column] = df_copy[column]
+
+    return df
+
+
+@_validate_argument_types1
+def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -> pd.DataFrame:
+    """
+    The function performs root transformation of numerical data according to the formula:
+            sample ^ (1/root)
+    :param root: int -> root
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to transform
+                    None -> All columns will be transformed
+    :return: pandas DataFrame -> Input DataFrame with transformed relevant columns
+    """
+    df_copy = df.copy()
+
+    if columns is None:
+        columns = df_copy.select_dtypes(include=['number']).columns.tolist()
+    else:
+        for element in columns:
+            if element not in df.columns:
+                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+            if not pd.api.types.is_numeric_dtype(df[element]):
+                raise ValueError(f"Column '{element}' is not numeric.")
+
+    for column in columns:
+        df_copy[column] = df_copy[column] ** (1/root)
+        df[column] = df_copy[column]
 
     return df
