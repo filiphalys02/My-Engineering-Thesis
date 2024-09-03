@@ -1,4 +1,4 @@
-from _errors import _validate_argument_types1
+from datamining._errors import _validate_argument_types1
 import pandas as pd
 import numpy as np
 import math
