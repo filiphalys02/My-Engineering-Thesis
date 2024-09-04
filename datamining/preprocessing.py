@@ -83,3 +83,4 @@ def handle_category_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
             else:
                 df[column] = df[column].fillna(strategy)
     return df
+
