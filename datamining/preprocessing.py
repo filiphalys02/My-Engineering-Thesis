@@ -1,4 +1,4 @@
-from datamining._errors import _validate_argument_types2, _validate_argument_types1
+from datamining._errors import _validate_argument_types1
 import pandas as pd
 
 
@@ -44,3 +44,42 @@ def handle_numeric_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
     return df
 
 
+@_validate_argument_types1
+def handle_category_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
+    """
+    Function helps to handle missing values in your Data Frame in categorical columns.
+    :param df: pandas DataFrame -> Input DataFrame
+    :param columns: list -> List of column names
+                   None -> Every categorical column will be included
+    :param strategy: 'drop' -> Drop rows with missing values
+                     'mode' -> Replace missing values with most common category
+                     'next' -> Replace missing values with neighboring category from the next row
+                     'prev' -> Replace missing values with neighboring category from the previous row
+                     other -> Replace missing values with this value
+    :return: pandas DataFrame -> Output Data Frame
+    """
+    if columns is None:
+        columns = df.columns
+    for column in columns:
+        if column not in df.columns:
+            raise ValueError(f"'{column}' is not a column in your DataFrame")
+        if not df[column].dtype in ['object', 'string', 'category', 'boolean']:
+            continue
+        if strategy == 'drop':
+            df = df.dropna(subset=[column])
+        elif strategy == 'mode':
+            mode_value = df[column].mode()[0]
+            df[column] = df[column].fillna(mode_value)
+        elif strategy == 'next':
+            df[column] = df[column].fillna(method='bfill')
+        elif strategy == 'prev':
+            df[column] = df[column].fillna(method='pad')
+        else:
+            strategy = str(strategy)
+            if df[column].dtype.name == 'category' and strategy is not None:
+                if strategy not in df[column].cat.categories:
+                    df[column] = df[column].cat.add_categories([strategy])
+                df[column] = df[column].fillna(strategy)
+            else:
+                df[column] = df[column].fillna(strategy)
+    return df
