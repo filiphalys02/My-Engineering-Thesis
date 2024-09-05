@@ -123,7 +123,7 @@ def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1
 
     if alpha != 0:
         for column in columns:
-            df_copy[column] = (df_copy[column]**alpha - 1) / alpha
+            df_copy[column] = (df_copy[column] ** alpha - 1) / alpha
     else:
         for column in columns:
             df_copy[column] = np.log(df_copy[column])
@@ -156,7 +156,7 @@ def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -
                 raise ValueError(f"Column '{element}' is not numeric.")
 
     for column in columns:
-        df_copy[column] = df_copy[column] ** (1/root)
+        df_copy[column] = df_copy[column] ** (1 / root)
         df[column] = df_copy[column]
 
     return df
@@ -170,9 +170,9 @@ def binarization(df: pd.DataFrame, columns: list = None, border: float = 0, valu
     :param columns: list -> List of column names to binarize
                     None -> All columns will be binarized
     :param border: float -> The boundary against which binarization will be performed
-    :param values: Two-element list,
-                   the first element will be assigned to the value below the border,
-                   the second element will be assigned to the value equal to or higher than the border
+    :param values: list -> Two-element list
+                   The first element will be assigned to the value below the border,
+                   The second element will be assigned to the value equal to or higher than the border
     :return: pandas DataFrame -> Input DataFrame with binarized relevant columns
     """
     df_copy = df.copy()
@@ -197,3 +197,49 @@ def binarization(df: pd.DataFrame, columns: list = None, border: float = 0, valu
         df[column] = df_copy[column]
 
     return df
+
+
+@_validate_argument_types1
+def one_hot_encoding(df: pd.DataFrame, columns: list = None, values: list = [0, 1], prefix_sep: str = '',
+                     drop: bool = True):
+    """
+    The function performs one-hot encoding on selected categorical columns.
+    :param df: pandas DataFrame -> Input Data Frame
+    :param columns: list -> List of column names to be encoded
+                    None -> All categorical columns will be encoded
+    :param values: list -> List of two values to replace 1 and 0 in the encoded columns
+    :param prefix_sep: str -> Separator between the prefix (column name) and the category name.
+    :param drop: bool -> drop or do not drop the original columns after encoding.
+    :return: pandas DataFrame -> DataFrame with one-hot encoded columns.
+    """
+    if columns is None:
+        columns = df.select_dtypes(include=['object', 'string', 'category', 'boolean']).columns.tolist()
+    else:
+        for column in columns:
+            if column not in df.columns:
+                raise ValueError(f"There is no column named '{column}' in your DataFrame.")
+            if (not pd.api.types.is_bool_dtype(df[column]) and not pd.api.types.is_object_dtype(df[column])
+                    and not pd.api.types.is_categorical_dtype(df[column])
+                    and not pd.api.types.is_string_dtype(df[column])):
+                raise ValueError(f"Column '{column}' is not categorical or boolean.")
+
+    if len(values) != 2:
+        raise ValueError(f"Argument 'values' must be a list of 2 elements, not {len(values)}.")
+
+    yes = values[0]
+    no = values[1]
+
+    prefixes = {col: col for col in columns}
+
+    df_enc = df.copy()
+    for col in columns:
+        dummies = pd.get_dummies(df_enc[col], prefix=prefixes.get(col, col), prefix_sep=prefix_sep)
+        df_enc = pd.concat([df_enc, dummies], axis=1)
+        if drop:
+            df_enc = df_enc.drop(columns=[col])
+
+    df_enc = df_enc.map(lambda x: 1 if x is True else (0 if x is False else x))
+
+    df_enc = df_enc.replace({1: yes, 0: no})
+
+    return df_enc
