@@ -5,6 +5,7 @@ from datamining.normalizations import (standarization, normalization_min_max, lo
                                       normalization_box_kox, root_transformation, binarization, one_hot_encoding)
 from datamining.check import (check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data,
                               check_data)
+from datamining.regression import BestSimpleRegression
 
 pd.set_option('future.no_silent_downcasting', True)
 
@@ -19,4 +20,6 @@ df = pd.DataFrame({'a': [None, None, None, None, 3 , 3, -3, 3, 3, 32],
                    'i': [pd.Timedelta(hours=0), pd.Timedelta(hours=1), pd.Timedelta(hours=2), pd.Timedelta(hours=3), pd.Timedelta(hours=4), pd.Timedelta(hours=5), pd.Timedelta(hours=6), pd.Timedelta(hours=7), pd.Timedelta(hours=8), pd.Timedelta(hours=9)]
                    })
 
-print(one_hot_encoding(df, ['c', 'd', 'h'], [17, 3], '-', False))
+# print(one_hot_encoding(df, ['c', 'd', 'h'], [17, 3], '-', False))
+
+BestSimpleRegression(df)
