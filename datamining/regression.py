@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from sklearn.model_selection import train_test_split, KFold, cross_val_score
+from sklearn.model_selection import train_test_split, KFold
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 import pandas as pd
@@ -16,10 +16,25 @@ def _count_line_formula(coefficient, intercept):
 
 
 class BestSimpleRegression:
-    def __init__(self, df: pd.DataFrame, response: str, divide_method: str = "train_test"):
+    def __init__(self, df: pd.DataFrame, response: str, set_seed: int = None, divide_method: str = "train_test",
+                 k: int = 5, test_size: float = 0.2):
+        """
+        The objects are models of simple linear regression for the dependent variable and the independent variable
+        that best fits it, using the r-squared coefficient.
+        :param df: pandas DataFrame -> Input data frame
+        :param response: string -> Name of dependent variable
+        :param set_seed: int -> Seed number for reproducibility
+        :param divide_method: 'train_test' -> Split data with train and test method
+                              'crossvalidation' -> Split data with crossvalidation method
+        :param k: int -> Folds in crossvalidation
+        :param: test_size: float -> Size of the test set
+        """
         self._df = df
         self._response = response
+        self._set_seed = set_seed
         self._divide_method = divide_method
+        self._k = k
+        self._test_size = test_size
 
         self._validate_inputs()
         self._find_best_feature()
@@ -28,7 +43,10 @@ class BestSimpleRegression:
         dic = {
             "df": ["DataFrame", self._df],
             "response": ["str", self._response],
-            "divide_data": ["NoneType or str", self._divide_method]
+            "set_seed": ["NoneType or int", self._set_seed],
+            "divide_data": ["NoneType or str", self._divide_method],
+            "k": ["int", self._k],
+            "test_size": ["float", self._test_size]
         }
         _validate_inputs(dic)
 
@@ -50,7 +68,7 @@ class BestSimpleRegression:
             x = self._df[feature].values
             x = x.reshape(-1, 1)
 
-            r2, mse, rmse, coefficient, intercept = self._choose_divide_method(x, y)
+            r2, mse, rmse, coefficient, intercept, rss = self._choose_divide_method(x, y)
 
             if r2 > self._best_feature_dic["r-squared"]:
                 self._best_feature_dic["r-squared"] = r2
@@ -60,6 +78,7 @@ class BestSimpleRegression:
                 self._best_feature_dic["coefficient"] = coefficient
                 self._best_feature_dic["intercept"] = intercept
                 self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept)
+                self._best_feature_dic["rss"] = rss
 
         self.best_feature = self._best_feature_dic["feature"]
         self.r_squared = self._best_feature_dic["r-squared"]
@@ -68,6 +87,7 @@ class BestSimpleRegression:
         self.coefficient = self._best_feature_dic["coefficient"]
         self.intercept = self._best_feature_dic["intercept"]
         self.formula = self._best_feature_dic["formula"]
+        self.rss = self._best_feature_dic["rss"]
 
     def _choose_divide_method(self, x, y):
         if self._divide_method == 'train_test':
@@ -79,7 +99,14 @@ class BestSimpleRegression:
 
     def _train_test_method(self, x, y):
         """ Train-test split method """
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+        if self._set_seed is None:
+            x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size)
+        else:
+            if 0 <= self._set_seed <= 4294967295:
+                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._set_seed)
+            else:
+                raise ValueError(f"Argument 'set_seed' must be in the range [0, 4294967295]")
+
         LinReg = LinearRegression()
         LinReg.fit(x_train, y_train)
         y_pred = LinReg.predict(x_test)
@@ -87,14 +114,26 @@ class BestSimpleRegression:
         r2 = r2_score(y_test, y_pred)
         mse = mean_squared_error(y_test, y_pred)
         rmse = np.sqrt(mse)
-        coefficient = LinReg.coef_
+        coefficient = LinReg.coef_[0]
         intercept = LinReg.intercept_
+        rss = np.sum((y_test - y_pred) ** 2)
 
-        return r2, mse, rmse, coefficient, intercept
+        return r2, mse, rmse, coefficient, intercept, rss
 
     def _crossvalidation_method(self, x, y):
         """ Cross-validation method """
-        kf = KFold(n_splits=5, shuffle=True)
+        if self._set_seed is None:
+            if self._df.shape[0] / 2 >= self._k:
+                kf = KFold(n_splits=self._k, shuffle=True)
+            else:
+                raise ValueError(f"Argument 'k' must be in the range [2, {int(self._df.shape[0] / 2)}]")
+        else:
+            if 0 <= self._set_seed <= 4294967295:
+                if self._df.shape[0] / 2 >= self._k:
+                    kf = KFold(n_splits=self._k, shuffle=True, random_state=self._set_seed)
+                else:
+                    raise ValueError(f"Argument 'k' must be in the range [2, {int(self._df.shape[0] / 2)}]")
+
         LinReg = LinearRegression()
 
         r2s = []
@@ -102,6 +141,7 @@ class BestSimpleRegression:
         rmses = []
         coefficients = []
         intercepts = []
+        rsss = []
 
         for train_index, test_index in kf.split(x):
             x_train, x_test = x[train_index], x[test_index]
@@ -116,14 +156,16 @@ class BestSimpleRegression:
             rmses.append(np.sqrt(mse))
             coefficients.append(LinReg.coef_)
             intercepts.append(LinReg.intercept_)
+            rsss.append(np.sum((y_test - y_pred) ** 2))
 
         r2_mean = np.mean(r2s)
         mse_mean = np.mean(mses)
         rmse_mean = np.mean(rmses)
         coefficient_mean = np.mean(coefficients)
         intercept_mean = np.mean(intercepts)
+        rss_mean = np.mean(rsss)
 
-        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean
+        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean
 
     def plot_model(self):
         """
@@ -138,4 +180,3 @@ class BestSimpleRegression:
         plt.title(f"{str(_count_line_formula(self.coefficient, self.intercept))}")
         plt.legend()
         plt.show()
-        return self.best_feature
