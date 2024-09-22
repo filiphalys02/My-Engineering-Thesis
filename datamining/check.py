@@ -310,7 +310,7 @@ def check_data(df: pd.DataFrame, round: int = 1):
     if check_numeric_data(df, round) != 'There is no numeric columns in Your Data Frame':
         print(f'--- NUMERIC DATA --- \n {check_numeric_data(df, round)} \n')
     if check_category_data(df) != 'There is no categorical columns in Your Data Frame':
-        print(f'--- CATEGORICAL DATA --- \n {check_category_data(df)} \n')
+        print(f'--- CATEGORY DATA --- \n {check_category_data(df)} \n')
     if check_time_series_data(df) != 'There is no time series columns in Your Data Frame':
         print(f'--- TIME SERIES DATA --- \n {check_time_series_data(df)} \n')
     if check_time_interval_data(df) != 'There is no time interval columns in Your Data Frame':

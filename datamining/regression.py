@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
+import itertools
 import pandas as pd
 import numpy as np
 from datamining._errors import _validate_inputs
@@ -15,7 +16,15 @@ def _count_line_formula(coefficient, intercept):
     return formula
 
 
-class BestSimpleRegression:
+def _generate_independent_variables_combinations_list(list_of_independent_variables):
+    list_of_all_combinations = []
+    for r in range(2, len(list_of_independent_variables) + 1):
+        combinations = list(itertools.combinations(list_of_independent_variables, r))
+        list_of_all_combinations.extend(combinations)
+    return list_of_all_combinations
+
+
+class BestSimpleLinearRegression:
     def __init__(self, df: pd.DataFrame, response: str, set_seed: int = None, divide_method: str = "train_test",
                  k: int = 5, test_size: float = 0.2):
         """
@@ -180,3 +189,67 @@ class BestSimpleRegression:
         plt.title(f"{str(_count_line_formula(self.coefficient, self.intercept))}")
         plt.legend()
         plt.show()
+
+
+class BestMultipleLinearRegression:
+    def __init__(self, df:pd.DataFrame, response: str, set_seed: int = None, divide_method: str = "train_test",
+                 k: int = 5, test_size: float = 0.2):
+        """
+        The objects are models of multiple linear regression for the dependent variable and the independent variables
+        that best fits it, using the r-squared coefficient.
+        :param df: pandas DataFrame -> Input data frame
+        :param response: string -> Name of dependent variable
+        :param set_seed: int -> Seed number for reproducibility
+        :param divide_method: 'train_test' -> Split data with train and test method
+                              'crossvalidation' -> Split data with crossvalidation method
+        :param k: int -> Folds in crossvalidation
+        :param: test_size: float -> Size of the test set
+        """
+        self._df = df
+        self._response = response
+        self._set_seed = set_seed
+        self._divide_method = divide_method
+        self._k = k
+        self._test_size = test_size
+
+        self._validate_inputs()
+        self._find_best_feature()
+
+    def _validate_inputs(self):
+        dic = {
+            "df": ["DataFrame", self._df],
+            "response": ["str", self._response],
+            "set_seed": ["NoneType or int", self._set_seed],
+            "divide_data": ["NoneType or str", self._divide_method],
+            "k": ["int", self._k],
+            "test_size": ["float", self._test_size]
+        }
+        _validate_inputs(dic)
+
+    def _find_best_feature(self):
+        """ Finds the best feature that explains the response variable using linear regression """
+
+        try:
+            self._df = self._df.select_dtypes(include=['number'])
+            self._df = self._df.select_dtypes(exclude=['timedelta'])
+            features = list(self._df.columns)
+            features.remove(self._response)
+        except ValueError:
+            raise ValueError(f"There is no '{self._response}' numeric column in your Data Frame")
+
+        y = self._df[self._response].values
+        self._best_feature_dic = {"r-squared": -1}
+
+        features_comb = _generate_independent_variables_combinations_list(features)
+
+        for feature in features_comb:
+            print(feature)
+
+
+    def _choose_divide_method(self, x, y):
+        if self._divide_method == 'train_test':
+            return self._train_test_method(x, y)
+        elif self._divide_method == 'crossvalidation':
+            return self._crossvalidation_method(x, y)
+        else:
+            raise ValueError(f"Argument 'divide_method' must be 'train_test' or 'crossvalidation'")
