@@ -240,11 +240,31 @@ class BestMultipleLinearRegression:
         y = self._df[self._response].values
         self._best_feature_dic = {"r-squared": -1}
 
-        features_comb = _generate_independent_variables_combinations_list(features)
+        features_combs = _generate_independent_variables_combinations_list(features)
 
-        for feature in features_comb:
-            print(feature)
+        for features_comb in features_combs:
+            x = self._df[list(features_comb)].values
 
+            r2, mse, rmse, coefficient, intercept, rss = self._choose_divide_method(x, y)
+
+            if r2 > self._best_feature_dic["r-squared"]:
+                self._best_feature_dic["r-squared"] = r2
+                self._best_feature_dic["features"] = features_comb
+                self._best_feature_dic["mse"] = mse
+                self._best_feature_dic["rmse"] = rmse
+                self._best_feature_dic["coefficient"] = coefficient
+                self._best_feature_dic["intercept"] = intercept
+                self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept)
+                self._best_feature_dic["rss"] = rss
+
+        self.best_features = self._best_feature_dic["features"]
+        self.r_squared = self._best_feature_dic["r-squared"]
+        self.mse = self._best_feature_dic["mse"]
+        self.rmse = self._best_feature_dic["rmse"]
+        self.coefficient = self._best_feature_dic["coefficient"]
+        self.intercept = self._best_feature_dic["intercept"]
+        self.formula = self._best_feature_dic["formula"]
+        self.rss = self._best_feature_dic["rss"]
 
     def _choose_divide_method(self, x, y):
         if self._divide_method == 'train_test':
@@ -253,3 +273,73 @@ class BestMultipleLinearRegression:
             return self._crossvalidation_method(x, y)
         else:
             raise ValueError(f"Argument 'divide_method' must be 'train_test' or 'crossvalidation'")
+
+    def _train_test_method(self, x, y):
+        """ Train-test split method """
+        if self._set_seed is None:
+            x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size)
+        else:
+            if 0 <= self._set_seed <= 4294967295:
+                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._set_seed)
+            else:
+                raise ValueError(f"Argument 'set_seed' must be in the range [0, 4294967295]")
+
+        LinReg = LinearRegression()
+        LinReg.fit(x_train, y_train)
+        y_pred = LinReg.predict(x_test)
+
+        r2 = r2_score(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = np.sqrt(mse)
+        coefficient = LinReg.coef_[0]
+        intercept = LinReg.intercept_
+        rss = np.sum((y_test - y_pred) ** 2)
+
+        return r2, mse, rmse, coefficient, intercept, rss
+
+    def _crossvalidation_method(self, x, y):
+        """ Cross-validation method """
+        if self._set_seed is None:
+            if self._df.shape[0] / 2 >= self._k:
+                kf = KFold(n_splits=self._k, shuffle=True)
+            else:
+                raise ValueError(f"Argument 'k' must be in the range [2, {int(self._df.shape[0] / 2)}]")
+        else:
+            if 0 <= self._set_seed <= 4294967295:
+                if self._df.shape[0] / 2 >= self._k:
+                    kf = KFold(n_splits=self._k, shuffle=True, random_state=self._set_seed)
+                else:
+                    raise ValueError(f"Argument 'k' must be in the range [2, {int(self._df.shape[0] / 2)}]")
+
+        LinReg = LinearRegression()
+
+        r2s = []
+        mses = []
+        rmses = []
+        coefficients = []
+        intercepts = []
+        rsss = []
+
+        for train_index, test_index in kf.split(x):
+            x_train, x_test = x[train_index], x[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+
+            LinReg.fit(x_train, y_train)
+            y_pred = LinReg.predict(x_test)
+
+            r2s.append(r2_score(y_test, y_pred))
+            mse = mean_squared_error(y_test, y_pred)
+            mses.append(mse)
+            rmses.append(np.sqrt(mse))
+            coefficients.append(LinReg.coef_)
+            intercepts.append(LinReg.intercept_)
+            rsss.append(np.sum((y_test - y_pred) ** 2))
+
+        r2_mean = np.mean(r2s)
+        mse_mean = np.mean(mses)
+        rmse_mean = np.mean(rmses)
+        coefficient_mean = np.mean(coefficients)
+        intercept_mean = np.mean(intercepts)
+        rss_mean = np.mean(rsss)
+
+        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean

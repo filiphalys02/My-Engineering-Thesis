@@ -22,6 +22,5 @@ df = pd.DataFrame({'a': [3, 4, 5, 6, 3 , 3, -3, 3, 3, 32],
                    'i': [pd.Timedelta(hours=0), pd.Timedelta(hours=1), pd.Timedelta(hours=2), pd.Timedelta(hours=3), pd.Timedelta(hours=4), pd.Timedelta(hours=5), pd.Timedelta(hours=6), pd.Timedelta(hours=7), pd.Timedelta(hours=8), pd.Timedelta(hours=9)]
                    })
 
-#print(BestSimpleRegression(df, 'j', 82, 'crossvalidation', k=5, test_size=0.2).rss)
+print(BestMultipleLinearRegression(df, 'k', 122, 'train_test').r_squared)
 
-print(BestMultipleLinearRegression(df, 'k'))
