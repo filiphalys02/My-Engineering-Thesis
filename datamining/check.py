@@ -95,13 +95,13 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
         return result_df.to_string(index=False)
 
 
-# indeks giniego ? entropia ?
 @_validate_argument_types1
-def check_category_data(df: pd.DataFrame, use: bool = False):
+def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = False):
     """
     The function summarizes categorical columns in a data frame using statistical measures.
     :param df: pandas DataFrame -> Input Data Frame
     :param use: boolean -> To use the output as a pandas Data Frame, set to True
+    :param cat_dist: boolean -> To check category distribution in each column, set to True
     :return: str -> If param use is False
              pandas DataFrame -> If param use is True
 
@@ -140,6 +140,23 @@ def check_category_data(df: pd.DataFrame, use: bool = False):
         else:
             mods.append(mode_series[0])
             fres.append(df[column].value_counts().get(mode_series[0], 0))
+
+        if cat_dist:
+            result_cd = pd.DataFrame()
+            amount_cd = df[column].value_counts()
+            percentage_cd = df[column].value_counts(normalize=True) * 100
+            rank_cd = amount_cd.rank(ascending=False)
+            result_cd["CATEGORY"] = amount_cd.index
+            result_cd["AMOUNT"] = amount_cd.values
+            result_cd["PERCENTAGE"] = percentage_cd.values
+            result_cd["RANK"] = rank_cd.values
+            result_cd = result_cd.to_string(index=False)
+            print(f"COLUMN: {column}")
+            print(result_cd)
+            print("\n")
+
+    if cat_dist:
+        return ""
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
