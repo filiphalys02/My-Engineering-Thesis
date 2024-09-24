@@ -8,11 +8,26 @@ import numpy as np
 from datamining._errors import _validate_inputs
 
 
-def _count_line_formula(coefficient, intercept):
+def _count_line_formula(coefficient, intercept, response, best_feature):
     if intercept >= 0:
-        formula = f"y = {round(coefficient, 4)}x + {round(intercept, 4)}"
+        formula = f"{response} = {round(coefficient, 4)}*{best_feature} + {round(intercept, 4)}"
     else:
-        formula = f"y = {round(coefficient, 4)}x - {-round(intercept, 4)}"
+        formula = f"{response} = {round(coefficient, 4)}*{best_feature} - {-round(intercept, 4)}"
+    return formula
+
+
+def _count_line_formula_2(coefficients, intercept, response, features):
+    elements = []
+    for coef, feature in zip(coefficients, features):
+        if coef < 0:
+            elements.append(f"- {-coef:.4f}*{feature}")
+        else:
+            elements.append(f"+ {coef:.4f}*{feature}")
+
+    formula = f"{response} = {intercept:.4f} " + " ".join(elements)
+    if formula.startswith(f"{response} = +"):
+        formula = formula.replace(f"{response} = +", f"{response} =")
+
     return formula
 
 
@@ -77,7 +92,7 @@ class BestSimpleLinearRegression:
             x = self._df[feature].values
             x = x.reshape(-1, 1)
 
-            r2, mse, rmse, coefficient, intercept, rss = self._choose_divide_method(x, y)
+            r2, mse, rmse, coefficient, intercept, rss, model, y_pred = self._choose_divide_method(x, y)
 
             if r2 > self._best_feature_dic["r-squared"]:
                 self._best_feature_dic["r-squared"] = r2
@@ -86,8 +101,10 @@ class BestSimpleLinearRegression:
                 self._best_feature_dic["rmse"] = rmse
                 self._best_feature_dic["coefficient"] = coefficient
                 self._best_feature_dic["intercept"] = intercept
-                self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept)
+                self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept, self._response, feature)
                 self._best_feature_dic["rss"] = rss
+                self._best_feature_dic["model"] = model
+                self._best_feature_dic["y_pred"] = y_pred
 
         self.best_feature = self._best_feature_dic["feature"]
         self.r_squared = self._best_feature_dic["r-squared"]
@@ -97,6 +114,8 @@ class BestSimpleLinearRegression:
         self.intercept = self._best_feature_dic["intercept"]
         self.formula = self._best_feature_dic["formula"]
         self.rss = self._best_feature_dic["rss"]
+        self.model = self._best_feature_dic["model"]
+        self.y_pred = self._best_feature_dic["y_pred"]
 
     def _choose_divide_method(self, x, y):
         if self._divide_method == 'train_test':
@@ -112,22 +131,24 @@ class BestSimpleLinearRegression:
             x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size)
         else:
             if 0 <= self._set_seed <= 4294967295:
-                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._set_seed)
+                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size,
+                                                                    random_state=self._set_seed)
             else:
                 raise ValueError(f"Argument 'set_seed' must be in the range [0, 4294967295]")
 
         LinReg = LinearRegression()
         LinReg.fit(x_train, y_train)
-        y_pred = LinReg.predict(x_test)
+        y_pred = LinReg.predict(x)
 
-        r2 = r2_score(y_test, y_pred)
-        mse = mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, LinReg.predict(x_test))
+        mse = mean_squared_error(y_test, LinReg.predict(x_test))
         rmse = np.sqrt(mse)
         coefficient = LinReg.coef_[0]
         intercept = LinReg.intercept_
-        rss = np.sum((y_test - y_pred) ** 2)
+        rss = np.sum((y_test - LinReg.predict(x_test)) ** 2)
+        model = LinReg
 
-        return r2, mse, rmse, coefficient, intercept, rss
+        return r2, mse, rmse, coefficient, intercept, rss, model, y_pred
 
     def _crossvalidation_method(self, x, y):
         """ Cross-validation method """
@@ -174,25 +195,27 @@ class BestSimpleLinearRegression:
         intercept_mean = np.mean(intercepts)
         rss_mean = np.mean(rsss)
 
-        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean
+        LinReg.fit(x, y)
+        y_pred = LinReg.predict(x)
+        model = LinReg
+
+        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean, model, y_pred
 
     def plot_model(self):
-        """
-        Plots the best feature against the response variable with the linear regression model.
-        """
+        """ Plots the best feature against the response variable with the linear regression model """
         plt.scatter(self._df[self.best_feature], self._df[self._response], label="Data")
         x_range = np.linspace(self._df[self.best_feature].min(), self._df[self.best_feature].max(), 100).reshape(-1, 1)
         y_range_pred = self.coefficient * x_range + self.intercept
         plt.plot(x_range, y_range_pred, color="red", label="Regression Line")
         plt.xlabel(f"Feature: {self.best_feature}")
         plt.ylabel(f"Target: {self._response}")
-        plt.title(f"{str(_count_line_formula(self.coefficient, self.intercept))}")
+        plt.title(f"{self.formula}")
         plt.legend()
         plt.show()
 
 
 class BestMultipleLinearRegression:
-    def __init__(self, df:pd.DataFrame, response: str, set_seed: int = None, divide_method: str = "train_test",
+    def __init__(self, df: pd.DataFrame, response: str, set_seed: int = None, divide_method: str = "train_test",
                  k: int = 5, test_size: float = 0.2):
         """
         The objects are models of multiple linear regression for the dependent variable and the independent variables
@@ -203,7 +226,7 @@ class BestMultipleLinearRegression:
         :param divide_method: 'train_test' -> Split data with train and test method
                               'crossvalidation' -> Split data with crossvalidation method
         :param k: int -> Folds in crossvalidation
-        :param: test_size: float -> Size of the test set
+        :param test_size: float -> Size of the test set
         """
         self._df = df
         self._response = response
@@ -220,7 +243,7 @@ class BestMultipleLinearRegression:
             "df": ["DataFrame", self._df],
             "response": ["str", self._response],
             "set_seed": ["NoneType or int", self._set_seed],
-            "divide_data": ["NoneType or str", self._divide_method],
+            "divide_method": ["NoneType or str", self._divide_method],
             "k": ["int", self._k],
             "test_size": ["float", self._test_size]
         }
@@ -245,26 +268,31 @@ class BestMultipleLinearRegression:
         for features_comb in features_combs:
             x = self._df[list(features_comb)].values
 
-            r2, mse, rmse, coefficient, intercept, rss = self._choose_divide_method(x, y)
+            r2, mse, rmse, coefficients, intercept, rss, model, y_pred = self._choose_divide_method(x, y)
 
             if r2 > self._best_feature_dic["r-squared"]:
                 self._best_feature_dic["r-squared"] = r2
                 self._best_feature_dic["features"] = features_comb
                 self._best_feature_dic["mse"] = mse
                 self._best_feature_dic["rmse"] = rmse
-                self._best_feature_dic["coefficient"] = coefficient
+                self._best_feature_dic["coefficients"] = coefficients
                 self._best_feature_dic["intercept"] = intercept
-                self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept)
+                self._best_feature_dic["formula"] = _count_line_formula_2(coefficients, intercept, self._response,
+                                                                          features_comb)
                 self._best_feature_dic["rss"] = rss
+                self._best_feature_dic["model"] = model
+                self._best_feature_dic["y_pred"] = y_pred
 
         self.best_features = self._best_feature_dic["features"]
         self.r_squared = self._best_feature_dic["r-squared"]
         self.mse = self._best_feature_dic["mse"]
         self.rmse = self._best_feature_dic["rmse"]
-        self.coefficient = self._best_feature_dic["coefficient"]
+        self.coefficients = self._best_feature_dic["coefficients"]
         self.intercept = self._best_feature_dic["intercept"]
         self.formula = self._best_feature_dic["formula"]
         self.rss = self._best_feature_dic["rss"]
+        self.model = self._best_feature_dic["model"]
+        self.y_pred = self._best_feature_dic["y_pred"]
 
     def _choose_divide_method(self, x, y):
         if self._divide_method == 'train_test':
@@ -280,22 +308,24 @@ class BestMultipleLinearRegression:
             x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size)
         else:
             if 0 <= self._set_seed <= 4294967295:
-                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._set_seed)
+                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size,
+                                                                    random_state=self._set_seed)
             else:
                 raise ValueError(f"Argument 'set_seed' must be in the range [0, 4294967295]")
 
         LinReg = LinearRegression()
         LinReg.fit(x_train, y_train)
-        y_pred = LinReg.predict(x_test)
+        y_pred = LinReg.predict(x)
 
-        r2 = r2_score(y_test, y_pred)
-        mse = mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, LinReg.predict(x_test))
+        mse = mean_squared_error(y_test, LinReg.predict(x_test))
         rmse = np.sqrt(mse)
-        coefficient = LinReg.coef_[0]
+        coefficients = LinReg.coef_
         intercept = LinReg.intercept_
-        rss = np.sum((y_test - y_pred) ** 2)
+        rss = np.sum((y_test - LinReg.predict(x_test)) ** 2)
+        model = LinReg
 
-        return r2, mse, rmse, coefficient, intercept, rss
+        return r2, mse, rmse, coefficients, intercept, rss, model, y_pred
 
     def _crossvalidation_method(self, x, y):
         """ Cross-validation method """
@@ -338,8 +368,24 @@ class BestMultipleLinearRegression:
         r2_mean = np.mean(r2s)
         mse_mean = np.mean(mses)
         rmse_mean = np.mean(rmses)
-        coefficient_mean = np.mean(coefficients)
+        coefficients_mean = np.mean(coefficients, axis=0)
         intercept_mean = np.mean(intercepts)
         rss_mean = np.mean(rsss)
 
-        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean
+        LinReg.fit(x, y)
+        y_pred = LinReg.predict(x)
+        model = LinReg
+
+        return r2_mean, mse_mean, rmse_mean, coefficients_mean, intercept_mean, rss_mean, model, y_pred
+
+    def plot_model(self):
+        """ Plots the actual vs predicted values """
+        y = self._df[self._response].values
+
+        plt.scatter(self.y_pred, y, label='Data')
+        plt.plot([y.min(), y.max()] , [y.min(), y.max()], color='red', label='Model')
+        plt.title(self.formula)
+        plt.xlabel('Predicted data')
+        plt.ylabel('Real data')
+        plt.legend()
+        plt.show()
