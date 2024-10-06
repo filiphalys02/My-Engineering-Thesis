@@ -12,7 +12,7 @@ pd.set_option('future.no_silent_downcasting', True)
 df = pd.DataFrame({'a': [3, 4, 5, 6, 3 , 3, -3, 3, 3, 32],
                    'b': [2.1, 23, 2.1, 2.1, 2.1, -88.2, 2.23, -8.99, 2.2, 2.23],
                    'j': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                   'k': [2, 3, 3, 3, 5, 6, 7, 8, 9, 9],
+                   'k': [1.1, 2.1, 3.1, 4.1, 5, 6, 7, 8, 9, 9.9],
                    'l': [2, 3, 4, 3, 5, 6, 7, 8, 9, 10],
                    'c': ["a", "b", "a", "b", "None", "b", "a", "b", "a", "a"],
                    'd': pd.Categorical(['x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
@@ -22,4 +22,4 @@ df = pd.DataFrame({'a': [3, 4, 5, 6, 3 , 3, -3, 3, 3, 32],
                    'i': [pd.Timedelta(hours=0), pd.Timedelta(hours=1), pd.Timedelta(hours=2), pd.Timedelta(hours=3), pd.Timedelta(hours=4), pd.Timedelta(hours=5), pd.Timedelta(hours=6), pd.Timedelta(hours=7), pd.Timedelta(hours=8), pd.Timedelta(hours=9)]
                    })
 
-print(BestSimpleLinearRegression(df, 'j', 54, 'crossvalidation').plot_model())
+print(BestMultipleLinearRegression(df, 'j', 7637655, 'crossvalidation').formula)

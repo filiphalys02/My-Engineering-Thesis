@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
 import itertools
 import pandas as pd
 import numpy as np
@@ -92,7 +92,7 @@ class BestSimpleLinearRegression:
             x = self._df[feature].values
             x = x.reshape(-1, 1)
 
-            r2, mse, rmse, coefficient, intercept, rss, model, y_pred = self._choose_divide_method(x, y)
+            r2, mse, rmse, coefficient, intercept, rss, rmspe, mape, model, y_pred = self._choose_divide_method(x, y)
 
             if r2 > self._best_feature_dic["r-squared"]:
                 self._best_feature_dic["r-squared"] = r2
@@ -103,6 +103,8 @@ class BestSimpleLinearRegression:
                 self._best_feature_dic["intercept"] = intercept
                 self._best_feature_dic["formula"] = _count_line_formula(coefficient, intercept, self._response, feature)
                 self._best_feature_dic["rss"] = rss
+                self._best_feature_dic["rmspe"] = rmspe
+                self._best_feature_dic["mape"] = mape
                 self._best_feature_dic["model"] = model
                 self._best_feature_dic["y_pred"] = y_pred
 
@@ -114,6 +116,8 @@ class BestSimpleLinearRegression:
         self.intercept = self._best_feature_dic["intercept"]
         self.formula = self._best_feature_dic["formula"]
         self.rss = self._best_feature_dic["rss"]
+        self.rmspe = self._best_feature_dic["rmspe"]
+        self.mape = self._best_feature_dic["mape"]
         self.model = self._best_feature_dic["model"]
         self.y_pred = self._best_feature_dic["y_pred"]
 
@@ -138,7 +142,7 @@ class BestSimpleLinearRegression:
 
         LinReg = LinearRegression()
         LinReg.fit(x_train, y_train)
-        y_pred = LinReg.predict(x)
+        y_pred = LinReg.predict(x_test)
 
         r2 = r2_score(y_test, LinReg.predict(x_test))
         mse = mean_squared_error(y_test, LinReg.predict(x_test))
@@ -146,9 +150,13 @@ class BestSimpleLinearRegression:
         coefficient = LinReg.coef_[0]
         intercept = LinReg.intercept_
         rss = np.sum((y_test - LinReg.predict(x_test)) ** 2)
+        rmspe = np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100
+        mape = mean_absolute_percentage_error(y_test, y_pred) * 100
         model = LinReg
 
-        return r2, mse, rmse, coefficient, intercept, rss, model, y_pred
+        y_pred = LinReg.predict(x)
+
+        return r2, mse, rmse, coefficient, intercept, rss, rmspe, mape, model, y_pred
 
     def _crossvalidation_method(self, x, y):
         """ Cross-validation method """
@@ -172,6 +180,8 @@ class BestSimpleLinearRegression:
         coefficients = []
         intercepts = []
         rsss = []
+        rmspes = []
+        mapes = []
 
         for train_index, test_index in kf.split(x):
             x_train, x_test = x[train_index], x[test_index]
@@ -187,6 +197,8 @@ class BestSimpleLinearRegression:
             coefficients.append(LinReg.coef_)
             intercepts.append(LinReg.intercept_)
             rsss.append(np.sum((y_test - y_pred) ** 2))
+            rmspes.append(np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100)
+            mapes.append(mean_absolute_percentage_error(y_test, y_pred) * 100)
 
         r2_mean = np.mean(r2s)
         mse_mean = np.mean(mses)
@@ -194,12 +206,14 @@ class BestSimpleLinearRegression:
         coefficient_mean = np.mean(coefficients)
         intercept_mean = np.mean(intercepts)
         rss_mean = np.mean(rsss)
+        rmspe_mean = np.mean(rmspes)
+        mape_mean = np.mean(mapes)
 
         LinReg.fit(x, y)
         y_pred = LinReg.predict(x)
         model = LinReg
 
-        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean, model, y_pred
+        return r2_mean, mse_mean, rmse_mean, coefficient_mean, intercept_mean, rss_mean, rmspe_mean, mape_mean, model, y_pred
 
     def plot_model(self):
         """ Plots the best feature against the response variable with the linear regression model """
@@ -268,7 +282,7 @@ class BestMultipleLinearRegression:
         for features_comb in features_combs:
             x = self._df[list(features_comb)].values
 
-            r2, mse, rmse, coefficients, intercept, rss, model, y_pred = self._choose_divide_method(x, y)
+            r2, mse, rmse, coefficients, intercept, rss, rmspe, mape, model, y_pred = self._choose_divide_method(x, y)
 
             if r2 > self._best_feature_dic["r-squared"]:
                 self._best_feature_dic["r-squared"] = r2
@@ -280,6 +294,8 @@ class BestMultipleLinearRegression:
                 self._best_feature_dic["formula"] = _count_line_formula_2(coefficients, intercept, self._response,
                                                                           features_comb)
                 self._best_feature_dic["rss"] = rss
+                self._best_feature_dic["rmspe"] = rmspe
+                self._best_feature_dic["mape"] = mape
                 self._best_feature_dic["model"] = model
                 self._best_feature_dic["y_pred"] = y_pred
 
@@ -291,6 +307,8 @@ class BestMultipleLinearRegression:
         self.intercept = self._best_feature_dic["intercept"]
         self.formula = self._best_feature_dic["formula"]
         self.rss = self._best_feature_dic["rss"]
+        self.rmspe = self._best_feature_dic["rmspe"]
+        self.mape = self._best_feature_dic["mape"]
         self.model = self._best_feature_dic["model"]
         self.y_pred = self._best_feature_dic["y_pred"]
 
@@ -315,7 +333,7 @@ class BestMultipleLinearRegression:
 
         LinReg = LinearRegression()
         LinReg.fit(x_train, y_train)
-        y_pred = LinReg.predict(x)
+        y_pred = LinReg.predict(x_test)
 
         r2 = r2_score(y_test, LinReg.predict(x_test))
         mse = mean_squared_error(y_test, LinReg.predict(x_test))
@@ -323,9 +341,13 @@ class BestMultipleLinearRegression:
         coefficients = LinReg.coef_
         intercept = LinReg.intercept_
         rss = np.sum((y_test - LinReg.predict(x_test)) ** 2)
+        rmspe = np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100
+        mape = mean_absolute_percentage_error(y_test, y_pred) * 100
         model = LinReg
 
-        return r2, mse, rmse, coefficients, intercept, rss, model, y_pred
+        y_pred = LinReg.predict(x)
+
+        return r2, mse, rmse, coefficients, intercept, rss, rmspe, mape, model, y_pred
 
     def _crossvalidation_method(self, x, y):
         """ Cross-validation method """
@@ -349,6 +371,8 @@ class BestMultipleLinearRegression:
         coefficients = []
         intercepts = []
         rsss = []
+        rmspes = []
+        mapes = []
 
         for train_index, test_index in kf.split(x):
             x_train, x_test = x[train_index], x[test_index]
@@ -364,6 +388,8 @@ class BestMultipleLinearRegression:
             coefficients.append(LinReg.coef_)
             intercepts.append(LinReg.intercept_)
             rsss.append(np.sum((y_test - y_pred) ** 2))
+            rmspes.append(np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100)
+            mapes.append(mean_absolute_percentage_error(y_test, y_pred) * 100)
 
         r2_mean = np.mean(r2s)
         mse_mean = np.mean(mses)
@@ -371,17 +397,18 @@ class BestMultipleLinearRegression:
         coefficients_mean = np.mean(coefficients, axis=0)
         intercept_mean = np.mean(intercepts)
         rss_mean = np.mean(rsss)
+        rmspe_mean = np.mean(rmspes)
+        mape_mean = np.mean(mapes)
 
         LinReg.fit(x, y)
         y_pred = LinReg.predict(x)
         model = LinReg
 
-        return r2_mean, mse_mean, rmse_mean, coefficients_mean, intercept_mean, rss_mean, model, y_pred
+        return r2_mean, mse_mean, rmse_mean, coefficients_mean, intercept_mean, rss_mean, rmspe_mean, mape_mean, model, y_pred
 
     def plot_model(self):
         """ Plots the actual vs predicted values """
         y = self._df[self._response].values
-
         plt.scatter(self.y_pred, y, label='Data')
         plt.plot([y.min(), y.max()] , [y.min(), y.max()], color='red', label='Model')
         plt.title(self.formula)
