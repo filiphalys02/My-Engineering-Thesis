@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score, KFold
 from sklearn.svm import SVC
 
 from datamining._errors import _validate_inputs
@@ -61,7 +61,7 @@ class BestClassification:
 
         X = pd.get_dummies(X, drop_first=True)
 
-        self._best_model_dic = {"accurancy": -1}
+        self._best_model_dic = {"accuracy": -1}
 
         models = {
             "Logistic Regression": LogisticRegression(solver='liblinear'),
@@ -72,7 +72,7 @@ class BestClassification:
         for model_name, model in models.items():
             accuracy, model, y_pred = self._choose_divide_method(model, X, y)
 
-            if accuracy > self._best_model_dic["accurancy"]:
+            if accuracy > self._best_model_dic["accuracy"]:
                 self._best_model_dic["accuracy"] = accuracy
                 self._best_model_dic["model_name"] = model_name
                 self._best_model_dic["model"] = model
@@ -103,7 +103,26 @@ class BestClassification:
 
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
-        accuracy = accuracy_score(y_test, y_pred)
 
+        accuracy = accuracy_score(y_test, y_pred)
         y_pred = model.predict(X)
+
         return accuracy, model, y_pred
+
+    def _crossvalidation_method(self, model, X, y):
+        """ Cross-validation method """
+        if self._set_seed is not None:
+            if 0 <= self._set_seed <= 4294967295:
+                kf = KFold(n_splits=self._k, shuffle=True, random_state=self._set_seed)
+            else:
+                raise ValueError("Seed must be between 0 and 4294967295")
+        else:
+            kf = KFold(n_splits=self._k, shuffle=True)
+
+        model.fit(X, y)
+
+        accuracy = cross_val_score(model, X, y, cv=kf, scoring='accuracy').mean()
+        y_pred = model.predict(X)
+
+        return accuracy, model, y_pred
+

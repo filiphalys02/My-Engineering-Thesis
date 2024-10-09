@@ -34,4 +34,4 @@ df = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
 df = pd.read_csv("penguins.csv")
 df['sex'] = df['sex'].astype('category')
 
-print(BestClassification(df, 'sex', 23, 'train_test', 5, 0.2).y_pred)
+print(BestClassification(df, 'sex', 42543, 'crossvalidation', 5, 0.2).accuracy)
