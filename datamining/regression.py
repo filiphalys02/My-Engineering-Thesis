@@ -5,7 +5,7 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percenta
 import itertools
 import pandas as pd
 import numpy as np
-from datamining._errors import _validate_inputs
+from datamining._errors import _validate_class_argument_types
 
 
 def _count_line_formula(coefficient, intercept, response, best_feature):
@@ -72,7 +72,7 @@ class BestSimpleLinearRegression:
             "k": ["int", self._k],
             "test_size": ["float", self._test_size]
         }
-        _validate_inputs(dic)
+        _validate_class_argument_types(dic)
 
     def _find_best_feature(self):
         """ Finds the best feature that explains the response variable using linear regression """
@@ -261,7 +261,7 @@ class BestMultipleLinearRegression:
             "k": ["int", self._k],
             "test_size": ["float", self._test_size]
         }
-        _validate_inputs(dic)
+        _validate_class_argument_types(dic)
 
     def _find_best_feature(self):
         """ Finds the best feature that explains the response variable using linear regression """

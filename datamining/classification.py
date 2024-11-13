@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, cross_val_score, KFold
 from sklearn.svm import SVC
 
-from datamining._errors import _validate_inputs
+from datamining._errors import _validate_class_argument_types
 
 
 class BestClassification:
@@ -41,7 +41,7 @@ class BestClassification:
             "k": ["int", self._k],
             "test_size": ["float", self._test_size],
         }
-        _validate_inputs(dic)
+        _validate_class_argument_types(dic)
 
     def _find_best_model(self):
         """ Finds the best classification model"""

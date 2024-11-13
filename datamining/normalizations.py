@@ -1,10 +1,10 @@
-from datamining._errors import _validate_argument_types1
+from datamining._errors import _validate_method_argument_types
 import pandas as pd
 import numpy as np
 import math
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def standarization(df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
     """
     The function performs standardization (Z-score Normalization) of numerical data according to the formula:
@@ -34,7 +34,7 @@ def standarization(df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def normalization_min_max(df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
     """
     The function performs min-max normalization of numerical data according to the formula:
@@ -64,7 +64,7 @@ def normalization_min_max(df: pd.DataFrame, columns: list = None) -> pd.DataFram
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: float = math.e, c: float = 0) \
         -> pd.DataFrame:
     """
@@ -98,7 +98,7 @@ def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: 
     return df_copy
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1) -> pd.DataFrame:
     """
     The function performs box-kox normalization of numerical data according to the formula:
@@ -133,7 +133,7 @@ def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -> pd.DataFrame:
     """
     The function performs root transformation of numerical data according to the formula:
@@ -162,7 +162,7 @@ def root_transformation(df: pd.DataFrame, columns: list = None, root: int = 1) -
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def binarization(df: pd.DataFrame, columns: list = None, border: float = 0, values: list = [0, 1]) -> pd.DataFrame:
     """
     The function performs binarization of numerical data
@@ -199,7 +199,7 @@ def binarization(df: pd.DataFrame, columns: list = None, border: float = 0, valu
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def one_hot_encoding(df: pd.DataFrame, columns: list = None, values: list = [0, 1], prefix_sep: str = '',
                      drop: bool = True):
     """

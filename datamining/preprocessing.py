@@ -1,8 +1,8 @@
-from datamining._errors import _validate_argument_types1
+from datamining._errors import _validate_method_argument_types
 import pandas as pd
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def handle_numeric_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
     """
     Function helps to handle missing values in your Data Frame in numeric columns.
@@ -44,7 +44,7 @@ def handle_numeric_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
     return df
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def handle_category_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
     """
     Function helps to handle missing values in your Data Frame in categorical columns.

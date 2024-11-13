@@ -1,8 +1,8 @@
 import pandas as pd
-from datamining._errors import _validate_argument_types1
+from datamining._errors import _validate_method_argument_types
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     """
     The function summarizes numerical columns in a data frame using statistical measures.
@@ -95,7 +95,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
         return result_df.to_string(index=False)
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = False):
     """
     The function summarizes categorical columns in a data frame using statistical measures.
@@ -171,7 +171,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
         return result_df.to_string(index=False)
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def check_time_series_data(df: pd.DataFrame, use: bool = False):
     """
     The function summarizes time series columns in a data frame using statistical measures.
@@ -240,7 +240,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
         return result_df.to_string(index=False)
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def check_time_interval_data(df: pd.DataFrame, use: bool = False):
     """
     The function summarizes time interval columns in a data frame using statistical measures.
@@ -316,7 +316,7 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
         return result_df.to_string(index=False)
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def check_data(df: pd.DataFrame, round: int = 1):
     """
     The function summarizes all columns in a data frame using statistical measures.
@@ -334,6 +334,6 @@ def check_data(df: pd.DataFrame, round: int = 1):
         print(f'--- TIME INTERVAL DATA --- \n {check_time_interval_data(df)} \n')
 
 
-@_validate_argument_types1
+@_validate_method_argument_types
 def _count_iqr(df, column):
     return df[column].quantile(0.75) - df[column].quantile(0.25)
