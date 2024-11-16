@@ -127,6 +127,8 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
     unis = list()
     mods = list()
     fres = list()
+    firsts = list()
+    lasts = list()
 
     for column in df.columns:
         names.append(column)
@@ -134,6 +136,8 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
         nans.append(df[column].isna().sum())
         unis.append(df[column].nunique())
         mode_series = df[column].mode()
+        firsts.append(df[column].iloc[0])
+        lasts.append(df[column].iloc[-1])
         if mode_series.empty:
             mods.append(None)
             fres.append(0)
@@ -164,6 +168,8 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
     result_df["UNIQUE"] = unis
     result_df["MODE"] = mods
     result_df["FREQ"] = fres
+    result_df["FIRST"] = firsts
+    result_df["LAST"] = lasts
 
     if use is True:
         return result_df
