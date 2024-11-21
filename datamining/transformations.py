@@ -99,16 +99,16 @@ def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: 
 
 
 @_validate_method_argument_types
-def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1) -> pd.DataFrame:
+def transformation_box_kox(df: pd.DataFrame, columns: list = None, alpha: float = 1) -> pd.DataFrame:
     """
-    The function performs box-kox normalization of numerical data according to the formula:
+    The function performs Box-Cox-like normalization of numerical data according to the formula:
             (sample^alpha - 1) / alpha, if alpha is not equal to 0
             ln(sample), if alpha is equal to 0
-    :param alpha: int -> alpha
-    :param df: pandas DataFrame -> Input Data Frame
+    :param df: pandas DataFrame -> Input DataFrame
     :param columns: list -> List of column names to normalize
-                    None -> All columns will be normalized
-    :return: pandas DataFrame -> Input DataFrame with normalized relevant columns
+                    None -> All numerical columns will be normalized
+    :param alpha: float -> alpha parameter controlling the transformation
+    :return: pandas DataFrame -> Transformed DataFrame with normalized relevant columns
     """
     df_copy = df.copy()
 
@@ -117,20 +117,22 @@ def normalization_box_kox(df: pd.DataFrame, columns: list = None, alpha: int = 1
     else:
         for element in columns:
             if element not in df.columns:
-                raise ValueError(f"There is not a column named '{element}' in your Data Frame.")
+                raise ValueError(f"There is no column named '{element}' in your DataFrame.")
             if not pd.api.types.is_numeric_dtype(df[element]):
                 raise ValueError(f"Column '{element}' is not numeric.")
 
-    if alpha != 0:
-        for column in columns:
+    for column in columns:
+        if (df_copy[column] <= 0).any():
+            raise ValueError(f"Column '{column}' contains non-positive values. "
+                             f"Box-Cox transformation requires all values to be greater than 0.")
+
+        if alpha != 0:
             df_copy[column] = (df_copy[column] ** alpha - 1) / alpha
-    else:
-        for column in columns:
+        else:
             df_copy[column] = np.log(df_copy[column])
 
-    df[column] = df_copy[column]
+    return df_copy
 
-    return df
 
 
 @_validate_method_argument_types
