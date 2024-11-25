@@ -2,7 +2,7 @@ import pandas as pd
 
 from datamining._errors import _validate_method_argument_types, _validate_class_argument_types
 from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
-from datamining.transformations import standarization, normalization_min_max, log_transformation, transformation_box_kox
+from datamining.transformations import standarization, normalization_min_max, log_transformation, transformation_box_kox, root_transformation, binarization
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 
 ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
@@ -81,13 +81,14 @@ standarization(df)
 normalization_min_max(df, ['a', 'b'])
 print(log_transformation(df, ['a', 'b'], 2.0,10.0,1.0))
 print(transformation_box_kox(df, columns=['a', 'b'], alpha=3))
+print(root_transformation(df, ['a', 'b'], root=2))
+print(binarization(df, ['a', 'b'], border=8, values=['<8', '>=8']))
 '''
 
 df = pd.DataFrame({
     'a': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    'b': [11, 22, 33, 44, 55, 66, 77, 88, 99, 110]
+    'b': [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 })
-
 
 
 
