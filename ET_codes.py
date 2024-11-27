@@ -4,6 +4,9 @@ from datamining._errors import _validate_method_argument_types, _validate_class_
 from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
 from datamining.transformations import standarization, normalization_min_max, log_transformation, transformation_box_kox, root_transformation, one_hot_encoding
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
+from datamining.preprocessing import handle_numeric_NaN, handle_category_NaN
+from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
+from datamining.classification import BestClassification
 
 ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
                               'b': [2.1, 23, 2.1, 2.1, 2.1, -88.2, 2.23, -8.99, 2.2, 2.23],
@@ -93,6 +96,21 @@ df = pd.DataFrame({
 print(one_hot_encoding(df, columns=['Category'], values=[0, 1], prefix_sep='_', drop=True))
 '''
 
+# Opis podmodulu preprocessing
+'''
+df = pd.DataFrame({
+    'a': [None, 2, None, 4, None, 6, 7, 8, 9, 10],
+    'b': [None, None, 9, 16, 25, None, 49, 64, 81, None]
+})
+print(handle_numeric_NaN(df, columns=['a', 'b'], strategy='median'))
 
+df = pd.DataFrame({
+    'c': pd.Categorical(['x', None, 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
+    'd': pd.Categorical(['x', 'z', None, 'x', 'y', 'z', 'x', 'y', 'z', 's'])
+})
+print(handle_category_NaN(df, columns=['c', 'd'], strategy='drop'))
+'''
 
-#BestMultipleLinearRegression(ramka_testowa, 'd').plot_model()
+print(BestSimpleLinearRegression(ramka_testowa, response='c', set_seed=12, divide_method='train_test', test_size=0.2).best_feature)
+print(BestMultipleLinearRegression(ramka_testowa, response='c', set_seed=12, divide_method='train_test', test_size=0.2).best_features)
+print(BestClassification(ramka_testowa, response='g', set_seed=18, divide_method='crossvalidation', k=5).model_name)
