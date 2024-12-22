@@ -8,43 +8,15 @@ from datamining.preprocessing import handle_numeric_NaN, handle_category_NaN
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 from datamining.classification import BestClassification
 
+"""
 ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
                               'b': [2.1, 23, 2.1, 2.1, 2.1, -88.2, 2.23, -8.99, 2.2, 2.23],
                               'c': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                               'd': [1.3, 2.9, 3.1, 3.5, 5, 6, 7, 8, 11, 9.9],
                               'e': [2, 3, 4, 3, 5, 6, 7, 8, 9, 10],
-                              'f': [True, False, False, False, True, True, False, True, True, True],
-                              'g': pd.Categorical(['x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
-                              'h': pd.Categorical([1, 2, 2, 2, 2, 2, 1, 1, 3, 3]),
-                              'i': pd.Series(['foo', 'bar', 'baz', 'bar', 'bar', 'baz', 'foo', 'bar', 'baz', 'xxx'],
-                                             dtype="string"),
-                              'j': [pd.Timestamp('2024-01-02 09:15:00'), pd.Timestamp('2024-01-02 09:15:00'),
-                                    pd.Timestamp('2024-01-02 09:15:00'), pd.Timestamp('2024-01-02 15:45:00'),
-                                    pd.Timestamp('2024-01-03 07:00:00'), pd.Timestamp('2024-01-03 14:00:00'),
-                                    pd.Timestamp('2024-01-04 10:00:00'), pd.Timestamp('2024-01-04 18:30:00'),
-                                    pd.Timestamp('2024-01-05 08:45:00'), pd.Timestamp('2024-01-05 20:15:00')],
-                              'k': pd.date_range(start='2024-01-01', periods=10, freq='D'),
-                              'l': [pd.Timedelta(hours=0, minutes=5, seconds=30),
-                                    pd.Timedelta(hours=1, minutes=10, seconds=15),
-                                    pd.Timedelta(hours=2, minutes=20, seconds=45),
-                                    pd.Timedelta(hours=3, minutes=15, seconds=0),
-                                    pd.Timedelta(hours=4, minutes=25, seconds=10),
-                                    pd.Timedelta(hours=5, minutes=30, seconds=30),
-                                    pd.Timedelta(hours=6, minutes=45, seconds=50),
-                                    pd.Timedelta(hours=7, minutes=50, seconds=20),
-                                    pd.Timedelta(hours=8, minutes=5, seconds=5),
-                                    pd.Timedelta(hours=9, minutes=15, seconds=35)],
-                              'm': [pd.Timedelta(days=5),
-                                    pd.Timedelta(days=10),
-                                    pd.Timedelta(days=15),
-                                    None,
-                                    pd.Timedelta(days=25),
-                                    pd.Timedelta(days=30),
-                                    pd.Timedelta(days=35),
-                                    pd.Timedelta(days=40),
-                                    pd.Timedelta(days=45),
-                                    pd.Timedelta(days=45)]
+                              'f': [3, 5, 7, 9, 2, 4, 6, 8, 1, 9]
                               })
+"""
 
 # Opis podmodulu _errors
 '''
@@ -111,6 +83,49 @@ df = pd.DataFrame({
 print(handle_category_NaN(df, columns=['c', 'd'], strategy='drop'))
 '''
 
-print(BestSimpleLinearRegression(ramka_testowa, response='c', set_seed=12, divide_method='train_test', test_size=0.2).best_feature)
-print(BestMultipleLinearRegression(ramka_testowa, response='c', set_seed=12, divide_method='train_test', test_size=0.2).best_features)
-print(BestClassification(ramka_testowa, response='g', set_seed=18, divide_method='crossvalidation', k=5).model_name)
+
+# Opis podmodulu regression
+"""
+instance = BestMultipleLinearRegression(ramka_testowa,
+                                        response='c',
+                                        set_seed=13,
+                                        divide_method='crossvalidation',
+                                        k=5)
+
+print(f"best_feature: {instance.best_features}")
+print(f"model: {instance.model}")
+print(f"formula: {instance.formula}")
+print(f"intercept: {instance.intercept}")
+print(f"coefficient: {instance.coefficients}")
+print(f"r_squared: {instance.r_squared}")
+print(f"y_pred: {instance.y_pred}")
+print(f"rmspe: {instance.rmspe}")
+print(f"rss: {instance.rss}")
+print(f"mape: {instance.mape}")
+print(f"mse: {instance.mse}")
+print(f"rmse: {instance.rmse}")
+instance.plot_model()
+"""
+
+# Opis podmodulu classification
+"""
+ramka_testowa = pd.DataFrame({
+    'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32, 23, 4, 5, 6, -2, 34, 12, 54, 1, 17],
+    'b': [True, False, False, False, True, True, False, True, True, True,
+          True, False, False, False, True, True, False, True, True, True],
+    'c': pd.Categorical(['x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's',
+                         'x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
+    'd': pd.Categorical([1, 2, 2, 2, 2, 2, 1, 1, 3, 3, 1, 1, 3, 3, 2, 3, 2, 2, 1, 3]),
+    'response': pd.Categorical(['a', 'c', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a',
+                                'a', 'c', 'c', 'c', 'b', 'a', 'a', 'b', 'b', 'a'])
+})
+
+instance = BestClassification(df=ramka_testowa,
+                              response='response',
+                              set_seed=123,
+                              divide_method='train_test',
+                              test_size=0.25)
+
+for attribute, value in instance.__dict__.items():
+    print(f"{attribute}: {value}")
+"""
