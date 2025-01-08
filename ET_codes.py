@@ -2,7 +2,8 @@ import pandas as pd
 
 from datamining._errors import _validate_method_argument_types, _validate_class_argument_types
 from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
-from datamining.transformations import standarization, normalization_min_max, log_transformation, transformation_box_kox, root_transformation, one_hot_encoding
+from datamining.transformations import standarization, normalization_min_max, log_transformation, \
+    transformation_box_cox, root_transformation, one_hot_encoding, binarization
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 from datamining.preprocessing import handle_numeric_NaN, handle_category_NaN
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
@@ -56,10 +57,11 @@ df = pd.DataFrame({
     'a': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     'b': [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 })
+
 standarization(df)
 normalization_min_max(df, ['a', 'b'])
 print(log_transformation(df, ['a', 'b'], 2.0,10.0,1.0))
-print(transformation_box_kox(df, columns=['a', 'b'], alpha=3))
+print(transformation_box_cox(df, columns=['a', 'b'], alpha=3))
 print(root_transformation(df, ['a', 'b'], root=2))
 print(binarization(df, ['a', 'b'], border=8, values=['<8', '>=8']))
 df = pd.DataFrame({

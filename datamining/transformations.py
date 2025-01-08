@@ -99,7 +99,7 @@ def log_transformation(df: pd.DataFrame, columns: list = None, a: float = 1, b: 
 
 
 @_validate_method_argument_types
-def transformation_box_kox(df: pd.DataFrame, columns: list = None, alpha: float = 1) -> pd.DataFrame:
+def transformation_box_cox(df: pd.DataFrame, columns: list = None, alpha: float = 1) -> pd.DataFrame:
     """
     The function performs Box-Cox-like normalization of numerical data according to the formula:
             (sample^alpha - 1) / alpha, if alpha is not equal to 0
@@ -132,7 +132,6 @@ def transformation_box_kox(df: pd.DataFrame, columns: list = None, alpha: float 
             df_copy[column] = np.log(df_copy[column])
 
     return df_copy
-
 
 
 @_validate_method_argument_types
