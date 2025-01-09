@@ -15,7 +15,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
             Output measures:
             NAME -> Column name
             TYPE -> Data type
-            NaN -> Number of missing values
+            MIS -> Number of missing values
             AVG -> Mean
             Q25 -> 25th percentile
             Q50 -> 50th percentile / median
@@ -42,7 +42,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
 
     names = list()
     types = list()
-    nans = list()
+    miss = list()
     means = list()
     q25s = list()
     q50s = list()
@@ -59,7 +59,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
     for column in df.columns:
         names.append(column)
         types.append(df[column].dtype)
-        nans.append(df[column].isna().sum())
+        miss.append(df[column].isna().sum())
         means.append(df[column].mean())
         q25s.append(df[column].quantile(0.25))
         q50s.append(df[column].quantile(0.5))
@@ -75,7 +75,7 @@ def check_numeric_data(df: pd.DataFrame, round: int = 1, use: bool = False):
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
-    result_df["NaN"] = nans
+    result_df["MIS"] = miss
     result_df["AVG"] = [f"{mean:.{round}f}" for mean in means]
     result_df["Q25"] = [f"{q25:.{round}f}" for q25 in q25s]
     result_df["MED"] = [f"{q50:.{round}f}" for q50 in q50s]
@@ -108,7 +108,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
             Output measures:
             NAME -> Column name
             TYPE -> Data type
-            NaN -> Number of missing values
+            MIS -> Number of missing values
             UNIQUE -> Number of unique categories
             MODE -> Most frequently occurring category (modal value)
             FREQ -> Frequency of the most frequently occurring category
@@ -123,7 +123,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
 
     names = list()
     types = list()
-    nans = list()
+    miss = list()
     unis = list()
     mods = list()
     fres = list()
@@ -133,7 +133,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
     for column in df.columns:
         names.append(column)
         types.append(df[column].dtype)
-        nans.append(df[column].isna().sum())
+        miss.append(df[column].isna().sum())
         unis.append(df[column].nunique())
         mode_series = df[column].mode()
         firsts.append(df[column].iloc[0])
@@ -164,7 +164,7 @@ def check_category_data(df: pd.DataFrame, use: bool = False, cat_dist: bool = Fa
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
-    result_df["NaN"] = nans
+    result_df["MIS"] = miss
     result_df["UNIQUE"] = unis
     result_df["MODE"] = mods
     result_df["FREQ"] = fres
@@ -189,7 +189,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
             Output measures:
             NAME -> Column name
             TYPE -> Data type
-            NaN -> Number of missing values
+            MIS -> Number of missing values
             MIN -> Earliest date
             MAX -> Latest date
             RAN -> Difference between latest date and earliest date
@@ -208,7 +208,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
 
     names = list()
     types = list()
-    nans = list()
+    miss = list()
     mins = list()
     maxs = list()
     rans = list()
@@ -220,7 +220,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
     for column in df.columns:
         names.append(column)
         types.append(df[column].dtype)
-        nans.append(df[column].isna().sum())
+        miss.append(df[column].isna().sum())
         mins.append(df[column].min())
         maxs.append(df[column].max())
         rans.append(df[column].max() - df[column].min())
@@ -231,7 +231,7 @@ def check_time_series_data(df: pd.DataFrame, use: bool = False):
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
-    result_df["NaN"] = nans
+    result_df["MIS"] = miss
     result_df["MIN"] = mins
     result_df["MAX"] = maxs
     result_df["RAN"] = rans
@@ -258,7 +258,7 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
             Output measures:
             NAME -> Column name
             TYPE -> Data type
-            NaN -> Number of missing values
+            MIS -> Number of missing values
             AVG -> Average interval
             MED -> Median interval
             IQR -> Interquartile range interval
@@ -278,7 +278,7 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
 
     names = list()
     types = list()
-    nans = list()
+    miss = list()
     avgs = list()
     q50s = list()
     iqrs = list()
@@ -292,7 +292,7 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
     for column in df.columns:
         names.append(column)
         types.append(df[column].dtype)
-        nans.append(df[column].isna().sum())
+        miss.append(df[column].isna().sum())
         avgs.append(pd.to_timedelta(round(df[column].mean().total_seconds()), unit='s'))
         q50s.append(pd.to_timedelta(round(df[column].quantile(0.5).total_seconds()), unit='s'))
         iqrs.append(pd.to_timedelta(round(_count_iqr(df, column).total_seconds()), unit='s'))
@@ -305,7 +305,7 @@ def check_time_interval_data(df: pd.DataFrame, use: bool = False):
 
     result_df["NAME"] = names
     result_df["TYPE"] = types
-    result_df["NaN"] = nans
+    result_df["MIS"] = miss
     result_df["AVG"] = avgs
     result_df["MED"] = q50s
     result_df["IQR"] = iqrs

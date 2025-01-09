@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from datamining._errors import _validate_method_argument_types, _validate_class_argument_types
 from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
@@ -9,15 +10,27 @@ from datamining.preprocessing import handle_numeric_NaN, handle_category_NaN
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 from datamining.classification import BestClassification
 
-"""
+np.random.seed(42)
+random_start_dates = pd.to_datetime(np.random.choice(pd.date_range('2022-01-01', '2023-12-31'), size=10, replace=False))
+random_end_dates = random_start_dates + pd.to_timedelta(np.random.randint(1, 30, size=10), unit='D')
+random_intervals_l = pd.to_timedelta(np.random.randint(1, 60, size=10), unit='D')
+random_intervals_m = pd.to_timedelta(np.random.randint(1, 120, size=10), unit='D')
+
 ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
                               'b': [2.1, 23, 2.1, 2.1, 2.1, -88.2, 2.23, -8.99, 2.2, 2.23],
                               'c': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                               'd': [1.3, 2.9, 3.1, 3.5, 5, 6, 7, 8, 11, 9.9],
                               'e': [2, 3, 4, 3, 5, 6, 7, 8, 9, 10],
-                              'f': [3, 5, 7, 9, 2, 4, 6, 8, 1, 9]
+                              'f': [True, False, False, False, True, True, False, True, True, True],
+                              'g': pd.Categorical(['x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
+                              'h': pd.Categorical([1, 2, 2, 2, 2, 2, 1, 1, 3, 3]),
+                              'i': pd.Categorical(['a', 'c', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a']),
+                              'j': random_start_dates,
+                              'k': random_end_dates,
+                              'l': random_intervals_l,
+                              'm': random_intervals_m
                               })
-"""
+
 
 # Opis podmodulu _errors
 '''
