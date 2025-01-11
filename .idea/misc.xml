@@ -4,4 +4,7 @@
     <option name="sdkName" value="ENV-FOR-ET" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="ENV-FOR-ET" project-jdk-type="Python SDK" />
+  <component name="PyCharmProfessionalAdvertiser">
+    <option name="shown" value="true" />
+  </component>
 </project>
