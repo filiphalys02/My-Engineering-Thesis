@@ -6,7 +6,7 @@ from datamining.check import check_numeric_data, check_category_data, check_time
 from datamining.transformations import standarization, normalization_min_max, log_transformation, \
     transformation_box_cox, root_transformation, one_hot_encoding, binarization
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
-from datamining.preprocessing import handle_numeric_NaN, handle_category_NaN
+from datamining.preprocessing import handle_missing_numeric, handle_missing_categories
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 from datamining.classification import BestClassification
 
@@ -89,15 +89,14 @@ df = pd.DataFrame({
     'a': [None, 2, None, 4, None, 6, 7, 8, 9, 10],
     'b': [None, None, 9, 16, 25, None, 49, 64, 81, None]
 })
-print(handle_numeric_NaN(df, columns=['a', 'b'], strategy='median'))
+print(handle_missing_numeric(df, columns=['a', 'b'], strategy='median'))
 
 df = pd.DataFrame({
     'c': pd.Categorical(['x', None, 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's']),
     'd': pd.Categorical(['x', 'z', None, 'x', 'y', 'z', 'x', 'y', 'z', 's'])
 })
-print(handle_category_NaN(df, columns=['c', 'd'], strategy='drop'))
+print(handle_missing_categories(df, columns=['c', 'd'], strategy='drop'))
 '''
-
 
 # Opis podmodulu regression
 """
@@ -123,7 +122,7 @@ instance.plot_model()
 """
 
 # Opis podmodulu classification
-"""
+
 ramka_testowa = pd.DataFrame({
     'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32, 23, 4, 5, 6, -2, 34, 12, 54, 1, 17],
     'b': [True, False, False, False, True, True, False, True, True, True,
@@ -143,4 +142,5 @@ instance = BestClassification(df=ramka_testowa,
 
 for attribute, value in instance.__dict__.items():
     print(f"{attribute}: {value}")
-"""
+
+print(instance.accuracy)

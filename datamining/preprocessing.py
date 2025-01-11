@@ -3,7 +3,7 @@ import pandas as pd
 
 
 @_validate_method_argument_types
-def handle_numeric_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
+def handle_missing_numeric(df: pd.DataFrame, columns: list = None, strategy=None):
     """
     Function helps to handle missing values in your Data Frame in numeric columns.
     :param df: pandas DataFrame -> Input DataFrame
@@ -45,7 +45,7 @@ def handle_numeric_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
 
 
 @_validate_method_argument_types
-def handle_category_NaN(df: pd.DataFrame, columns: list = None, strategy=None):
+def handle_missing_categories(df: pd.DataFrame, columns: list = None, strategy=None):
     """
     Function helps to handle missing values in your Data Frame in categorical columns.
     :param df: pandas DataFrame -> Input DataFrame

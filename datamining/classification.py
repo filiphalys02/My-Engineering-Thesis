@@ -102,10 +102,10 @@ class BestClassification:
                 raise ValueError("Seed must be between 0 and 4294967295")
 
         model.fit(X_train, y_train)
+
         y_pred = model.predict(X_test)
 
         accuracy = accuracy_score(y_test, y_pred)
-        y_pred = model.predict(X)
 
         return accuracy, model, y_pred
 
@@ -125,4 +125,3 @@ class BestClassification:
         y_pred = model.predict(X)
 
         return accuracy, model, y_pred
-
