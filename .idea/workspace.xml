@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Case Study 2" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;filiphalys02&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/filiphalys02/My-Engineering-Thesis.git&quot;,
+    &quot;accountId&quot;: &quot;a959f68d-c63d-4a27-8e6f-b00bb97e4d97&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2jC7v4O2t8rRQ80KgVna4ewZDJS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.CaseStudy_Diamonds.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ET_codes.executor&quot;: &quot;Run&quot;,
+    &quot;Python._errors.executor&quot;: &quot;Run&quot;,
+    &quot;Python.check.executor&quot;: &quot;Run&quot;,
+    &quot;Python.classification.executor&quot;: &quot;Run&quot;,
+    &quot;Python.normalizations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.preprocessing.executor&quot;: &quot;Run&quot;,
+    &quot;Python.regression.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testing.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/AGH_CodeHub/Analiza-i-przetwarzanie-sygnałów-i-obrazów-cyfrowych/Projekt&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\My-Engineering-Thesis\ET" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="" />
+      <created>1720879433244</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720879433244</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Creating Conda Virtual Environment &amp; datamining package">
+      <option name="closed" value="true" />
+      <created>1720886944175</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720886944175</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Function (decorator) _validate_argument_types">
+      <option name="closed" value="true" />
+      <created>1720889935386</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1720889935386</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Function handle_NaN">
+      <option name="closed" value="true" />
+      <created>1721752977449</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721752977449</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Function check_numeric data">
+      <option name="closed" value="true" />
+      <created>1722439252047</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1722439252047</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Function check_numeric data (argument use, description, outlier counter, iqr)">
+      <option name="closed" value="true" />
+      <created>1723657955740</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723657955740</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Function check_category data">
+      <option name="closed" value="true" />
+      <created>1723826003932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723826003932</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Function check_category data">
+      <option name="closed" value="true" />
+      <created>1723826067987</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723826067987</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Functions check_time_series_data and check_time_interval_data (without descriptions)">
+      <option name="closed" value="true" />
+      <created>1723994750998</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1723994750999</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Descriptions to functions: check_time_series_data, check_time_interval_data">
+      <option name="closed" value="true" />
+      <created>1724005207789</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724005207789</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Function check_data">
+      <option name="closed" value="true" />
+      <created>1724009082903</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724009082903</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Little changes to check subpackage">
+      <option name="closed" value="true" />
+      <created>1724781095655</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1724781095655</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Function standarization in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1724783834984</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724783834984</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Function normalization_min_max in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1725218141674</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725218141674</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Function log_transformation in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1725220163350</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725220163350</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Function normalization_box_cox in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1725292941976</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1725292941976</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Function root_transformation in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1725294723527</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725294723527</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Function binarization in preprocessing module">
+      <option name="closed" value="true" />
+      <created>1725297050220</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1725297050220</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Re-editing folders in the project">
+      <option name="closed" value="true" />
+      <created>1725380769270</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1725380769270</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Function 'handle_numeric_NaN' in preprocessing subpackage">
+      <option name="closed" value="true" />
+      <created>1725386456119</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1725386456119</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Function 'handle_numeric_NaN' in preprocessing subpackage">
+      <option name="closed" value="true" />
+      <created>1725472902542</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1725472902542</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Function 'handle_category_NaN' in preprocessing subpackage">
+      <option name="closed" value="true" />
+      <created>1725472930431</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1725472930431</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Function 'one_hot_encoding' in normalizations subpackage">
+      <option name="closed" value="true" />
+      <created>1725554784389</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1725554784389</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Function '_validate_inputs' in _errors subpackage and Declaraction of BestSimpleRegression class in regression subpackage">
+      <option name="closed" value="true" />
+      <created>1725987226253</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1725987226254</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Class BestSimpleRegression: finding best feature name and its r2 using train_test method">
+      <option name="closed" value="true" />
+      <created>1725996785007</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1725996785007</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Class BestSimpleRegression: finding mse, rmse, intercept, coefficient, formula; plotting model; choose divide_method">
+      <option name="closed" value="true" />
+      <created>1726074084747</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1726074084748</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Class BestSimpleRegression: rss; arguments set_seed, k, test_size; solving mistake with coef_ in _train_test_method">
+      <option name="closed" value="true" />
+      <created>1726161962108</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1726161962108</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Class BestMultipleLinearRegression: alghoritm to create a list of all possible combinations of independent variables">
+      <option name="closed" value="true" />
+      <created>1727010518532</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1727010518532</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Class BestMultipleLinearRegression: Creating models with every possible features combination and choosing the best model">
+      <option name="closed" value="true" />
+      <created>1727112539946</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1727112539947</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Function check_category_data: argument cat_dist">
+      <option name="closed" value="true" />
+      <created>1727192930790</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1727192930790</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Regression classes: editing formulas, editing ploting, adding model and y_pred as atrributes of class instances">
+      <option name="closed" value="true" />
+      <created>1727202823763</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1727202823764</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Regression classes: rmspe, mape measures and y_pred">
+      <option name="closed" value="true" />
+      <created>1728239216274</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1728239216275</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Subpackage classification.py: find best classify model by accurancy using logistic regression, SVM, random forest. Only train_test method.">
+      <option name="closed" value="true" />
+      <created>1728410321532</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1728410321532</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Subpackage classification.py: crossvalidation option, _best_model_dic correction">
+      <option name="closed" value="true" />
+      <created>1728496652565</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1728496652565</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Renaming methods in _errors subpackage">
+      <option name="closed" value="true" />
+      <created>1731526285221</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1731526285221</updated>
+    </task>
+    <task id="LOCAL-00035" summary="ET update, ET_codes file, little changes in check.py file">
+      <option name="closed" value="true" />
+      <created>1731781677973</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1731781677973</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1732129610916</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1732129610917</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1732215377610</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1732215377610</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1732563314130</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1732563314130</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1732650605670</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1732650605670</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1732734526749</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1732734526749</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1734866771631</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1734866771631</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1736001505989</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1736001505989</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Changes in Engineering thesis">
+      <option name="closed" value="true" />
+      <created>1736348703452</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1736348703452</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Case Study 1">
+      <option name="closed" value="true" />
+      <created>1736361047274</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1736361047274</updated>
+    </task>
+    <task id="LOCAL-00045" summary="NaN to MIS changes in check subpackage">
+      <option name="closed" value="true" />
+      <created>1736453287238</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1736453287238</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Case Study 1">
+      <option name="closed" value="true" />
+      <created>1736454560697</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1736454560697</updated>
+    </task>
+    <task id="LOCAL-00047" summary="New folder for Case studies section">
+      <option name="closed" value="true" />
+      <created>1736586141712</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1736586141712</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Rename file to: Modelowanie regresyjne ceny diamentów">
+      <option name="closed" value="true" />
+      <created>1736586992986</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1736586992986</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Case Study 2">
+      <option name="closed" value="true" />
+      <created>1736632150681</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1736632150681</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Function root_transformation in preprocessing module" />
+    <MESSAGE value="Function binarization in preprocessing module" />
+    <MESSAGE value="Re-editing folders in the project" />
+    <MESSAGE value="Function 'handle_numeric_NaN' in preprocessing subpackage" />
+    <MESSAGE value="Function 'handle_category_NaN' in preprocessing subpackage" />
+    <MESSAGE value="Function 'one_hot_encoding' in normalizations subpackage" />
+    <MESSAGE value="Function '_validate_inputs' in _errors subpackage and Declaraction of BestSimpleRegression class in regression subpackage" />
+    <MESSAGE value="Class BestSimpleRegression: finding best feature name and its r2 using train_test method" />
+    <MESSAGE value="Class BestSimpleRegression: finding mse, rmse, intercept, coefficient, formula; plotting model; choose divide_method" />
+    <MESSAGE value="Class BestSimpleRegression: rss; arguments set_seed, k, test_size; solving mistake with coef_ in _train_test_method" />
+    <MESSAGE value="Class BestMultipleLinearRegression: alghoritm to create a list of all possible combinations of independent variables" />
+    <MESSAGE value="Class BestMultipleLinearRegression: Creating models with every possible features combination and choosing the best model" />
+    <MESSAGE value="Function check_category_data: argument cat_dist" />
+    <MESSAGE value="Regression classes: editing formulas, editing ploting, adding model and y_pred as atrributes of class instances" />
+    <MESSAGE value="Regression classes: rmspe, mape measures and y_pred" />
+    <MESSAGE value="Subpackage classification.py: find best classify model by accurancy using logistic regression, SVM, random forest. Only train_test method." />
+    <MESSAGE value="Subpackage classification.py: crossvalidation option, _best_model_dic correction" />
+    <MESSAGE value="Renaming methods in _errors subpackage" />
+    <MESSAGE value="ET update, ET_codes file, little changes in check.py file" />
+    <MESSAGE value="Changes in Engineering thesis" />
+    <MESSAGE value="NaN to MIS changes in check subpackage" />
+    <MESSAGE value="Case Study 1" />
+    <MESSAGE value="New folder for Case studies section" />
+    <MESSAGE value="Rename file to: Modelowanie regresyjne ceny diamentów" />
+    <MESSAGE value="Case Study 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Case Study 2" />
+  </component>
+</project>
