@@ -25,11 +25,10 @@ Step 3: Navigate to the project directory:
 cd My-Engineering-Thesis
 ```
 
-Step 4: Create a Virtual Environment based on file `environment.yaml`:
+Step 4: Create a Virtual Environment based on file `environment.yml` or `conda-lock.yml`:
 ```bash
 conda env create -f environment.yml
 ```
-or
 ```bash
 conda install conda-lock -c conda-forge
 conda-lock install --name VIRTUAL-ENV conda-lock.yml

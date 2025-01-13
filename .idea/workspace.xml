@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="READ.ME">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CaseStudies/ET_codes.py" beforeDir="false" afterPath="$PROJECT_DIR$/CaseStudies/ET_codes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/How to create virtual env in conda.txt" beforeDir="false" afterPath="$PROJECT_DIR$/How to create virtual env in conda.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" beforeDir="false" afterPath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conda-lock.yml" beforeDir="false" afterPath="$PROJECT_DIR$/conda-lock.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
-    </list>
+    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Changes in Virtual Environment" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,14 +79,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720879433244</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Function check_numeric data">
-      <option name="closed" value="true" />
-      <created>1722439252047</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1722439252047</updated>
     </task>
     <task id="LOCAL-00005" summary="Function check_numeric data (argument use, description, outlier counter, iqr)">
       <option name="closed" value="true" />
@@ -479,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736781802946</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Changes in Virtual Environment">
+      <option name="closed" value="true" />
+      <created>1736789491326</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1736789491326</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -494,7 +487,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Re-editing folders in the project" />
     <MESSAGE value="Function 'handle_numeric_NaN' in preprocessing subpackage" />
     <MESSAGE value="Function 'handle_category_NaN' in preprocessing subpackage" />
     <MESSAGE value="Function 'one_hot_encoding' in normalizations subpackage" />
@@ -519,6 +511,7 @@
     <MESSAGE value="Case Study 2" />
     <MESSAGE value="Changes in ET" />
     <MESSAGE value="READ.ME" />
-    <option name="LAST_COMMIT_MESSAGE" value="READ.ME" />
+    <MESSAGE value="Changes in Virtual Environment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in Virtual Environment" />
   </component>
 </project>
