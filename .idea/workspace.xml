@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Case Study 2" />
+    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Changes in ET" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,14 +78,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720879433244</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Function (decorator) _validate_argument_types">
-      <option name="closed" value="true" />
-      <created>1720889935386</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1720889935386</updated>
     </task>
     <task id="LOCAL-00003" summary="Function handle_NaN">
       <option name="closed" value="true" />
@@ -471,11 +463,18 @@
       <option name="project" value="LOCAL" />
       <updated>1736673700446</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Changes in ET">
+      <option name="closed" value="true" />
+      <created>1736675905244</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1736675905244</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Function root_transformation in preprocessing module" />
     <MESSAGE value="Function binarization in preprocessing module" />
     <MESSAGE value="Re-editing folders in the project" />
     <MESSAGE value="Function 'handle_numeric_NaN' in preprocessing subpackage" />
@@ -500,6 +499,7 @@
     <MESSAGE value="New folder for Case studies section" />
     <MESSAGE value="Rename file to: Modelowanie regresyjne ceny diamentów" />
     <MESSAGE value="Case Study 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Case Study 2" />
+    <MESSAGE value="Changes in ET" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in ET" />
   </component>
 </project>
