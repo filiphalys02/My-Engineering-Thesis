@@ -8,12 +8,12 @@
 ## Features
 This package provides tools to:
 - Streamline the analysis of tabular datasets.
-- Build and optimize regression and classification models using AI.
+- Build and optimize regression and classification models.
 - Simplify the implementation process for data mining tasks.
 
 ## Installation and Setup Guide
 
-Step 1: Ensure you have [Git](https://git-scm.com/) and [Anaconda](https://www.anaconda.com/) installed on your system.
+Step 1: Ensure you have [Git](https://git-scm.com/) and [Anaconda](https://www.anaconda.com/) installed on your computer.
 
 Step 2: Clone the Repository:
 ```bash
