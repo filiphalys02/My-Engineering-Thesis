@@ -122,7 +122,7 @@ instance.plot_model()
 """
 
 # Opis podmodulu classification
-
+'''
 ramka_testowa = pd.DataFrame({
     'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32, 23, 4, 5, 6, -2, 34, 12, 54, 1, 17],
     'b': [True, False, False, False, True, True, False, True, True, True,
@@ -140,7 +140,5 @@ instance = BestClassification(df=ramka_testowa,
                               divide_method='train_test',
                               test_size=0.25)
 
-for attribute, value in instance.__dict__.items():
-    print(f"{attribute}: {value}")
-
 print(instance.accuracy)
+'''

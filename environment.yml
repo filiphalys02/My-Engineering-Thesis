@@ -1,3 +1,4 @@
+name: VIRTUAL-ENV
 channels:
   - conda-forge
 dependencies:
@@ -10,4 +11,3 @@ dependencies:
       - -e .
 platforms:
   - win-64
-

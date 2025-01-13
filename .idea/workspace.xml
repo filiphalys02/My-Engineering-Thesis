@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Changes in ET" />
+    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="READ.ME">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CaseStudies/ET_codes.py" beforeDir="false" afterPath="$PROJECT_DIR$/CaseStudies/ET_codes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/How to create virtual env in conda.txt" beforeDir="false" afterPath="$PROJECT_DIR$/How to create virtual env in conda.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" beforeDir="false" afterPath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conda-lock.yml" beforeDir="false" afterPath="$PROJECT_DIR$/conda-lock.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,23 +48,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.CaseStudy_Diamonds.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ET_codes.executor&quot;: &quot;Run&quot;,
-    &quot;Python._errors.executor&quot;: &quot;Run&quot;,
-    &quot;Python.check.executor&quot;: &quot;Run&quot;,
-    &quot;Python.classification.executor&quot;: &quot;Run&quot;,
-    &quot;Python.normalizations.executor&quot;: &quot;Run&quot;,
-    &quot;Python.preprocessing.executor&quot;: &quot;Run&quot;,
-    &quot;Python.regression.executor&quot;: &quot;Run&quot;,
-    &quot;Python.testing.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/AGH_CodeHub/Analiza-i-przetwarzanie-sygnałów-i-obrazów-cyfrowych/Projekt&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.CaseStudy_Diamonds.executor": "Run",
+    "Python.ET_codes.executor": "Run",
+    "Python._errors.executor": "Run",
+    "Python.check.executor": "Run",
+    "Python.classification.executor": "Run",
+    "Python.normalizations.executor": "Run",
+    "Python.preprocessing.executor": "Run",
+    "Python.regression.executor": "Run",
+    "Python.testing.executor": "Run",
+    "Python.transformations.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/AGH_CodeHub/Analiza-i-przetwarzanie-sygnałów-i-obrazów-cyfrowych/Projekt",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\My-Engineering-Thesis\ET" />
@@ -78,14 +86,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720879433244</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Function handle_NaN">
-      <option name="closed" value="true" />
-      <created>1721752977449</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1721752977449</updated>
     </task>
     <task id="LOCAL-00004" summary="Function check_numeric data">
       <option name="closed" value="true" />
@@ -471,11 +471,29 @@
       <option name="project" value="LOCAL" />
       <updated>1736675905244</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="READ.ME">
+      <option name="closed" value="true" />
+      <created>1736781802946</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1736781802946</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Function binarization in preprocessing module" />
     <MESSAGE value="Re-editing folders in the project" />
     <MESSAGE value="Function 'handle_numeric_NaN' in preprocessing subpackage" />
     <MESSAGE value="Function 'handle_category_NaN' in preprocessing subpackage" />
@@ -500,6 +518,7 @@
     <MESSAGE value="Rename file to: Modelowanie regresyjne ceny diamentów" />
     <MESSAGE value="Case Study 2" />
     <MESSAGE value="Changes in ET" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes in ET" />
+    <MESSAGE value="READ.ME" />
+    <option name="LAST_COMMIT_MESSAGE" value="READ.ME" />
   </component>
 </project>

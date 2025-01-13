@@ -29,10 +29,15 @@ Step 4: Create a Virtual Environment based on file `environment.yaml`:
 ```bash
 conda env create -f environment.yml
 ```
+or
+```bash
+conda install conda-lock -c conda-forge
+conda-lock install --name VIRTUAL-ENV conda-lock.yml
+```
 
 Step 5: Activate the Environment:
 ```bash
-conda activate ENV-FOR-ET
+conda activate VIRTUAL-ENV
 ```
 
 Step 6: Install the Package:
@@ -44,3 +49,4 @@ Step 7: Ready to Use, example usage in Python:
 ```python
 from datamining.classification import BestClassification
 ```
+
