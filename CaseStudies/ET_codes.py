@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 
 from datamining._errors import _validate_method_argument_types, _validate_class_argument_types
-from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, check_data
+from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, \
+    check_data
 from datamining.transformations import standarization, normalization_min_max, log_transformation, \
     transformation_box_cox, root_transformation, one_hot_encoding, binarization
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
@@ -10,6 +11,7 @@ from datamining.preprocessing import handle_missing_numeric, handle_missing_cate
 from datamining.regression import BestSimpleLinearRegression, BestMultipleLinearRegression
 from datamining.classification import BestClassification
 
+'''
 np.random.seed(42)
 random_start_dates = pd.to_datetime(np.random.choice(pd.date_range('2022-01-01', '2023-12-31'), size=10, replace=False))
 random_end_dates = random_start_dates + pd.to_timedelta(np.random.randint(1, 30, size=10), unit='D')
@@ -30,6 +32,7 @@ ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
                               'l': random_intervals_l,
                               'm': random_intervals_m
                               })
+'''
 
 
 # Opis podmodulu _errors
@@ -38,8 +41,7 @@ ramka_testowa = pd.DataFrame({'a': [3, 4, 5, 6, 3, 3, -3, 3, 3, 32],
 def test(a: int):
     return a
 
-
-#print(test(1))
+print(test(1))
 print(test('a'))
 '''
 
@@ -55,6 +57,7 @@ instance = Test(1)
 instance = Test('a')
 '''
 
+
 # Opis podmodulu check
 '''
 print(check_numeric_data(df=ramka_testowa, round=2, use=False))
@@ -63,6 +66,7 @@ print(check_time_series_data(df=ramka_testowa, use=False))
 print(check_time_interval_data(df=ramka_testowa, use=False))
 check_data(df=ramka_testowa)
 '''
+
 
 # Opis podmodulu normalizations
 '''
@@ -73,7 +77,7 @@ df = pd.DataFrame({
 
 standarization(df)
 normalization_min_max(df, ['a', 'b'])
-print(log_transformation(df, ['a', 'b'], 2.0,10.0,1.0))
+print(log_transformation(df, ['a', 'b'], 2.0, 10.0, 1.0))
 print(transformation_box_cox(df, columns=['a', 'b'], alpha=3))
 print(root_transformation(df, ['a', 'b'], root=2))
 print(binarization(df, ['a', 'b'], border=8, values=['<8', '>=8']))
@@ -82,6 +86,7 @@ df = pd.DataFrame({
 })
 print(one_hot_encoding(df, columns=['Category'], values=[0, 1], prefix_sep='_', drop=True))
 '''
+
 
 # Opis podmodulu preprocessing
 '''
@@ -97,6 +102,7 @@ df = pd.DataFrame({
 })
 print(handle_missing_categories(df, columns=['c', 'd'], strategy='drop'))
 '''
+
 
 # Opis podmodulu regression
 """
@@ -121,6 +127,7 @@ print(f"rmse: {instance.rmse}")
 instance.plot_model()
 """
 
+
 # Opis podmodulu classification
 '''
 ramka_testowa = pd.DataFrame({
@@ -134,11 +141,8 @@ ramka_testowa = pd.DataFrame({
                                 'a', 'c', 'c', 'c', 'b', 'a', 'a', 'b', 'b', 'a'])
 })
 
-instance = BestClassification(df=ramka_testowa,
-                              response='response',
-                              set_seed=123,
-                              divide_method='train_test',
-                              test_size=0.25)
+instance = BestClassification(df=ramka_testowa, response='response', set_seed=123,
+                              divide_method='train_test', test_size=0.25)
 
 print(instance.accuracy)
 '''
