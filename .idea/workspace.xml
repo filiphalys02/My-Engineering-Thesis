@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Changes in Virtual Environment">
+    <list default="true" id="8fc12613-2e51-423e-9be1-226b96e6a1d6" name="Changes" comment="Changes in ET">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CaseStudies/ET_codes.py" beforeDir="false" afterPath="$PROJECT_DIR$/CaseStudies/ET_codes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" beforeDir="false" afterPath="$PROJECT_DIR$/PRACA_INŻYNIERSKA_FILIP_HAŁYS.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,14 +82,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720879433244</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Function check_category data">
-      <option name="closed" value="true" />
-      <created>1723826003932</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1723826003932</updated>
     </task>
     <task id="LOCAL-00007" summary="Function check_category data">
       <option name="closed" value="true" />
@@ -476,7 +467,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736789591694</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Changes in ET">
+      <option name="closed" value="true" />
+      <created>1737242714892</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1737242714892</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -513,9 +512,9 @@
     <MESSAGE value="New folder for Case studies section" />
     <MESSAGE value="Rename file to: Modelowanie regresyjne ceny diamentów" />
     <MESSAGE value="Case Study 2" />
-    <MESSAGE value="Changes in ET" />
     <MESSAGE value="READ.ME" />
     <MESSAGE value="Changes in Virtual Environment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes in Virtual Environment" />
+    <MESSAGE value="Changes in ET" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in ET" />
   </component>
 </project>

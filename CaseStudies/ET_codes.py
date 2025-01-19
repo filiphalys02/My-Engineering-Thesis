@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from datamining._errors import _validate_method_argument_types, _validate_class_argument_types
-from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data, \
+from datamining.check import check_numeric_data, check_category_data, check_time_series_data, check_time_interval_data,\
     check_data
 from datamining.transformations import standarization, normalization_min_max, log_transformation, \
     transformation_box_cox, root_transformation, one_hot_encoding, binarization
@@ -81,10 +81,13 @@ print(log_transformation(df, ['a', 'b'], 2.0, 10.0, 1.0))
 print(transformation_box_cox(df, columns=['a', 'b'], alpha=3))
 print(root_transformation(df, ['a', 'b'], root=2))
 print(binarization(df, ['a', 'b'], border=8, values=['<8', '>=8']))
+
+
 df = pd.DataFrame({
     'Category': pd.Categorical(['x', 'z', 'z', 'x', 'y', 'z', 'x', 'y', 'z', 's'])
 })
-print(one_hot_encoding(df, columns=['Category'], values=[0, 1], prefix_sep='_', drop=True))
+
+print(one_hot_encoding(df, columns=['Category'], values=[1, 0], prefix_sep='_', drop=True))
 '''
 
 
